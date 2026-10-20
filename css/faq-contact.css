@@ -1,0 +1,114 @@
+/* ==========================================================
+   faq-contact.css — FAQ dan formulir kontak.
+   ========================================================== */
+
+/* FAQ (accordion <details>) */
+.faq details {
+  border-bottom: 1px solid var(--line);
+  padding: 20px 0;
+}
+
+.faq summary {
+  cursor: pointer;
+  font: 500 22px 'Cormorant Garamond',serif;
+  list-style: none;
+  display: flex;
+  justify-content: space-between;
+}
+
+.faq summary:after {
+  content: "+";
+  color: var(--goldd);
+}
+
+.faq details[open] summary:after {
+  content: "–";
+}
+
+.faq details p {
+  color: var(--mute);
+  margin-top: 10px;
+  max-width: 640px;
+}
+
+/* Kontak (latar gelap) + formulir */
+.contact {
+  background: #141414;
+  color: #f1eee8;
+  border-radius: 36px 36px 0 0;
+}
+
+.contact .w {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 56px;
+}
+
+.contact p {
+  opacity: .75;
+  margin-top: 14px;
+  max-width: 400px;
+}
+
+/* Formulir */
+form {
+  display: grid;
+  gap: 14px;
+}
+
+/* Label field */
+label {
+  font-size: 13px;
+  opacity: .8;
+}
+
+/* Field isian */
+input,
+select {
+  width: 100%;
+  padding: 13px 16px;
+  margin-top: 5px;
+  border-radius: 12px;
+  border: 1px solid rgba(241,238,232,.3);
+  background: transparent;
+  color: #f1eee8;
+  font: 300 15px Jost;
+}
+
+/* Pilihan jenis acara */
+select option {
+  color: #111;
+}
+
+/* Field isian */
+input::-webkit-calendar-picker-indicator {
+  filter: invert(1);
+}
+
+/* Kontak (latar gelap) + formulir */
+.contact a:hover {
+  color: var(--gold);
+}
+
+/* Pesan "Membuka WhatsApp..." */
+.ok {
+  display: none;
+  color: var(--gold);
+}
+
+/* Responsif: Tablet & HP (lebar layar maksimal 860px) */
+@media (max-width: 860px) {
+  .contact .w {
+    grid-template-columns: minmax(0,1fr);
+  }
+}
+
+/* FAQ (accordion <details>) */
+.faq details[open] p {
+  animation: in .4s both;
+}
+
+/* Formulir */
+form {
+  min-width: 0;
+}

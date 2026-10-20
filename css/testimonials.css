@@ -1,0 +1,217 @@
+/* ==========================================================
+   testimonials.css — Slider testimoni (isi saat ini contoh).
+   ========================================================== */
+
+/* Testimoni */
+.tm {
+  overflow: hidden;
+}
+
+/* Tata letak dua kolom */
+.tmg {
+  display: grid;
+  grid-template-columns: .85fr 1.15fr;
+  gap: 60px;
+  align-items: center;
+}
+
+/* Foto bulat bertumpuk */
+.tmv {
+  position: relative;
+  aspect-ratio: 1;
+  max-width: 430px;
+  width: 100%;
+}
+
+.tmv .c1 {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 80%;
+  height: 80%;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 1px solid var(--ink);
+}
+
+.tmv .c1 img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transition: opacity 1s;
+}
+
+.tmv .c1 img.on {
+  opacity: 1;
+}
+
+.tmv .c2 {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: 44%;
+  height: 44%;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 1px solid var(--ink);
+  box-shadow: 0 0 0 8px var(--bg);
+}
+
+.tmv .c2 img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Label jenis acara */
+.tch {
+  position: absolute;
+  left: 6%;
+  bottom: 6%;
+  background: var(--gold);
+  color: #141414;
+  font: 500 13px Jost,sans-serif;
+  padding: 8px 18px;
+  border-radius: 99px;
+}
+
+/* Tumpukan kutipan */
+.tmt {
+  display: grid;
+}
+
+/* Satu kutipan (tampil saat .on) */
+.tq {
+  grid-area: 1/1;
+  margin: 0;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(14px);
+  transition: opacity .7s,transform .7s,visibility .7s;
+}
+
+.tq.on {
+  opacity: 1;
+  visibility: visible;
+  transform: none;
+}
+
+.tq blockquote {
+  font: italic 400 clamp(25px,3vw,36px)/1.28 'Cormorant Garamond',serif;
+  margin: 0 0 26px;
+}
+
+.tq blockquote:before {
+  content: "\201C";
+  display: block;
+  font-size: 84px;
+  line-height: .62;
+  color: var(--gold);
+  font-style: normal;
+}
+
+.tq figcaption {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.tq small {
+  display: block;
+  color: var(--mute);
+  font-size: 13px;
+}
+
+/* Lingkaran inisial */
+.av {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  border: 1px solid var(--gold);
+  font: 500 18px 'Cormorant Garamond',serif;
+  flex: none;
+}
+
+/* Tab klien + garis progres */
+.tabs2 {
+  display: grid;
+  grid-template-columns: repeat(3,1fr);
+  gap: 14px;
+  margin-top: 38px;
+}
+
+.tabs2 button {
+  text-align: left;
+  background: none;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+  color: var(--ink);
+  font-family: inherit;
+  opacity: .5;
+  transition: opacity .3s;
+}
+
+.tabs2 button.on,
+.tabs2 button:hover {
+  opacity: 1;
+}
+
+.tabs2 .bar {
+  display: block;
+  height: 2px;
+  background: var(--line);
+  margin-bottom: 10px;
+  overflow: hidden;
+}
+
+.tabs2 .bar i {
+  display: block;
+  height: 100%;
+  width: 0;
+  background: var(--gold);
+}
+
+.tabs2 b {
+  display: block;
+  font: 500 14px Jost,sans-serif;
+}
+
+.tabs2 small {
+  font-size: 12.5px;
+  color: var(--mute);
+}
+
+/* Catatan "contoh" (hapus setelah diisi asli) */
+.tmnote {
+  font-size: 12.5px;
+  color: var(--mute);
+  margin-top: 34px;
+}
+
+/* Responsif: Tablet & HP (lebar layar maksimal 860px) */
+@media (max-width: 860px) {
+  .tmg {
+    grid-template-columns: 1fr;
+    gap: 34px;
+  }
+
+  .tmv {
+    margin: 0 auto;
+    max-width: 320px;
+  }
+}
+
+/* Responsif: Pengguna yang meminta animasi dikurangi (aksesibilitas) */
+@media (prefers-reduced-motion: reduce) {
+  .tq,
+  .tmv .c1 img {
+    transition: none;
+    transform: none;
+  }
+}

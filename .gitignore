@@ -1,0 +1,8 @@
+# Sistem
+.DS_Store
+Thumbs.db
+# Alat pengembangan
+node_modules/
+.vercel/
+.env
+*.log

@@ -1,0 +1,146 @@
+/* ==========================================================
+   packages.css — Tab & kartu paket.
+   ========================================================== */
+
+/* Tab pilihan paket */
+.tabs {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 34px;
+  flex-wrap: wrap;
+}
+
+.tabs button {
+  padding: 10px 22px;
+  border-radius: 99px;
+  border: 1px solid var(--line);
+  background: none;
+  color: var(--ink);
+  font: 400 14px Jost;
+  cursor: pointer;
+}
+
+.tabs button[aria-selected=true] {
+  background: var(--ink);
+  color: var(--bg);
+  border-color: var(--ink);
+}
+
+/* Kartu paket (tampil saat .on) */
+.pk {
+  display: none;
+  grid-template-columns: .8fr 1.2fr;
+  gap: 44px;
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 28px;
+  padding: 34px;
+  align-items: center;
+}
+
+.pk.on {
+  display: grid;
+  animation: in .5s both;
+}
+
+.pk img {
+  border-radius: 18px;
+  width: 100%;
+}
+
+/* Harga */
+.price {
+  margin: 14px 0 4px;
+  font: 500 44px/1 'Cormorant Garamond',serif;
+}
+
+.price s {
+  font-size: 20px;
+  color: var(--mute);
+  margin-right: 10px;
+}
+
+/* Kartu paket (tampil saat .on) */
+.pk ul {
+  list-style: none;
+  padding: 0;
+  margin: 20px 0 26px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px 22px;
+  font-size: 14.5px;
+}
+
+.pk li {
+  padding-left: 20px;
+  position: relative;
+}
+
+.pk li:before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: .6em;
+  width: 9px;
+  height: 9px;
+  border: 1px solid var(--gold);
+  border-radius: 50%;
+  background: radial-gradient(var(--gold) 38%,transparent 42%);
+}
+
+.pk .note {
+  font-size: 13px;
+  color: var(--mute);
+}
+
+/* Responsif: Tablet & HP (lebar layar maksimal 860px) */
+@media (max-width: 860px) {
+  .pk.on {
+    grid-template-columns: minmax(0,1fr);
+  }
+
+  .pk {
+    padding: 20px;
+  }
+
+  .pk ul {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Lencana "Hemat ..." */
+.save {
+  display: inline-block;
+  background: var(--gold);
+  color: #141414;
+  font: 500 12.5px Jost,sans-serif;
+  padding: 4px 12px;
+  border-radius: 99px;
+  margin-right: 6px;
+}
+
+/* Harga */
+.price {
+  overflow-wrap: anywhere;
+}
+
+/* Responsif: Tablet (lebar layar 600px - 860px) */
+@media (min-width: 600px) and (max-width: 860px) {
+  .pk.on {
+    grid-template-columns: minmax(0,.9fr) minmax(0,1.1fr);
+    gap: 26px;
+  }
+}
+
+/* Responsif: HP kecil (lebar layar maksimal 520px) */
+@media (max-width: 520px) {
+  .price {
+    font-size: 36px;
+  }
+
+  .price s {
+    display: block;
+    font-size: 17px;
+    margin: 0 0 4px;
+  }
+}

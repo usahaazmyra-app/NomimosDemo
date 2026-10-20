@@ -1,0 +1,23 @@
+/* ==========================================================
+   footer.css — Footer.
+   ========================================================== */
+
+/* Footer */
+footer a:hover {
+  color: var(--gold);
+}
+
+footer {
+  background: #141414;
+  color: #a9a49b;
+  font-size: 13px;
+  padding: 26px 0 40px;
+  border-top: 1px solid rgba(241,238,232,.15);
+}
+
+footer .w {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+}

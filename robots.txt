@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+# Ganti DOMAIN-ANDA.com setelah domain aktif
+Sitemap: https://DOMAIN-ANDA.com/sitemap.xml

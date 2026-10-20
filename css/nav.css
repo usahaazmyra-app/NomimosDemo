@@ -1,0 +1,182 @@
+/* ==========================================================
+   nav.css — Navbar & logo.
+   ========================================================== */
+
+/* Navbar menempel di atas, bisa sembunyi saat scroll turun */
+nav {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  background: var(--navbg);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--line);
+  padding-top: env(safe-area-inset-top,0);
+}
+
+nav .w {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 64px;
+}
+
+/* Logo (versi tinta untuk tema terang, versi krem untuk tema gelap) */
+.logo {
+  font-family: 'Cormorant Garamond',serif;
+  font-size: 22px;
+  font-weight: 600;
+  letter-spacing: .14em;
+  text-decoration: none;
+}
+
+.logo small {
+  display: block;
+  font: 400 9px/1 Jost;
+  letter-spacing: .4em;
+  color: var(--mute);
+}
+
+/* Navbar menempel di atas, bisa sembunyi saat scroll turun */
+nav ul {
+  display: flex;
+  gap: 28px;
+  list-style: none;
+  padding: 0;
+}
+
+nav ul a {
+  text-decoration: none;
+  font-size: 14px;
+  color: var(--mute);
+}
+
+nav ul a:hover {
+  color: var(--ink);
+}
+
+/* Responsif: Tablet & HP (lebar layar maksimal 860px) */
+@media (max-width: 860px) {
+  nav ul {
+    display: none;
+  }
+}
+
+/* Navbar menempel di atas, bisa sembunyi saat scroll turun */
+nav .w {
+  height: 78px;
+}
+
+/* Logo (versi tinta untuk tema terang, versi krem untuk tema gelap) */
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.lt {
+  line-height: 1.15;
+}
+
+/* Gambar logo */
+.lm img {
+  height: 50px;
+  width: auto;
+  display: block;
+}
+
+.lm .lg-d {
+  display: none;
+}
+
+/* Responsif: Mode gelap otomatis mengikuti pengaturan perangkat */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme=light]) .lg-l {
+    display: none;
+  }
+
+  :root:not([data-theme=light]) .lg-d {
+    display: block;
+  }
+}
+
+/* Variabel desain: warna, tema terang/gelap */
+:root[data-theme=dark] .lg-l {
+  display: none;
+}
+
+:root[data-theme=dark] .lg-d {
+  display: block;
+}
+
+/* Responsif: HP kecil (lebar layar maksimal 520px) */
+@media (max-width: 520px) {
+  nav .w {
+    height: 68px;
+  }
+
+  .lm img {
+    height: 40px;
+  }
+
+  .logo {
+    gap: 10px;
+    font-size: 18px;
+  }
+
+  nav .w>.btn {
+    padding: 9px 14px!important;
+    font-size: 13px!important;
+  }
+}
+
+/* Navbar menempel di atas, bisa sembunyi saat scroll turun */
+nav {
+  transition: transform .35s;
+}
+
+nav.hide {
+  transform: translateY(-100%);
+}
+
+/* Tombol tema + konsultasi (kanan) */
+.nr {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+/* Tombol ganti tema */
+.tg {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1px solid var(--line);
+  background: none;
+  color: var(--ink);
+  font-size: 17px;
+  cursor: pointer;
+  transition: .2s;
+}
+
+.tg:hover {
+  border-color: var(--gold);
+  color: var(--goldd);
+}
+
+/* Responsif: HP kecil (lebar layar maksimal 520px) */
+@media (max-width: 520px) {
+  nav .nr .btn {
+    padding: 9px 14px!important;
+    font-size: 13px!important;
+  }
+
+  .tg {
+    width: 36px;
+    height: 36px;
+  }
+}
+
+/* Navbar menempel di atas, bisa sembunyi saat scroll turun */
+nav ul a.is-active {
+  color: var(--ink);
+}

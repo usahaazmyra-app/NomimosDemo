@@ -1,0 +1,49 @@
+# ==========================================================
+# .htaccess — untuk hosting Apache (Hostinger, dll.)
+# Letakkan di folder public_html bersama index.html
+# ==========================================================
+
+# Halaman awal & larangan melihat isi folder
+DirectoryIndex index.html
+Options -Indexes
+
+# Halaman 404 kustom
+ErrorDocument 404 /404.html
+
+# Paksa HTTPS (aktifkan SSL di panel Hostinger lebih dulu)
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteCond %{HTTPS} off
+  RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+</IfModule>
+
+# Kompresi teks (HTML, CSS, JS) agar halaman lebih ringan
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/css application/javascript image/svg+xml application/json
+</IfModule>
+
+# Tipe file media
+<IfModule mod_mime.c>
+  AddType video/mp4 .mp4
+  AddType audio/mpeg .mp3
+  AddType font/woff2 .woff2
+</IfModule>
+
+# Cache browser (percepat kunjungan berikutnya)
+<IfModule mod_expires.c>
+  ExpiresActive On
+  ExpiresByType image/jpeg "access plus 1 month"
+  ExpiresByType image/png "access plus 1 month"
+  ExpiresByType video/mp4 "access plus 1 month"
+  ExpiresByType audio/mpeg "access plus 1 month"
+  ExpiresByType text/css "access plus 1 week"
+  ExpiresByType application/javascript "access plus 1 week"
+  ExpiresByType text/html "access plus 0 seconds"
+</IfModule>
+
+# Header keamanan dasar
+<IfModule mod_headers.c>
+  Header set X-Content-Type-Options "nosniff"
+  Header set X-Frame-Options "SAMEORIGIN"
+  Header set Referrer-Policy "strict-origin-when-cross-origin"
+</IfModule>

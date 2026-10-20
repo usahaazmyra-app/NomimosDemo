@@ -1,0 +1,51 @@
+/* ==========================================================
+   process.css — "Cara kerja" 4 langkah.
+   ========================================================== */
+
+/* Cara kerja: 4 langkah bernomor otomatis (CSS counter) */
+.steps {
+  counter-reset: s;
+  display: grid;
+  grid-template-columns: repeat(4,1fr);
+  gap: 26px;
+}
+
+.steps li {
+  list-style: none;
+  border-top: 1px solid var(--ink);
+  padding-top: 18px;
+  counter-increment: s;
+}
+
+.steps li:before {
+  content: counter(s);
+  font: italic 400 34px 'Cormorant Garamond',serif;
+  color: var(--goldd);
+}
+
+.steps h3 {
+  font-size: 23px;
+  margin: 6px 0;
+}
+
+.steps p {
+  font-size: 14px;
+  color: var(--mute);
+}
+
+/* Responsif: Tablet & HP (lebar layar maksimal 860px) */
+@media (max-width: 860px) {
+  .steps {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+/* Cara kerja: 4 langkah bernomor otomatis (CSS counter) */
+.steps li {
+  border-top-width: 2px;
+  transition: border-color .5s;
+}
+
+.steps li.lit {
+  border-top-color: var(--gold);
+}

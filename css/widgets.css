@@ -1,0 +1,140 @@
+/* ==========================================================
+   widgets.css — Elemen melayang: WhatsApp, musik, kursor, progres scroll.
+   ========================================================== */
+
+/* Garis progres scroll */
+#pg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 3px;
+  width: 0;
+  background: var(--gold);
+  z-index: 60;
+}
+
+/* Tombol WhatsApp melayang */
+.wa {
+  animation: pulse 2.6s infinite;
+}
+
+/* Responsif: Pengguna yang meminta animasi dikurangi (aksesibilitas) */
+@media (prefers-reduced-motion: reduce) {
+  .wa {
+    animation: none;
+  }
+}
+
+/* Tombol WhatsApp melayang */
+.wa {
+  position: fixed;
+  right: 18px;
+  bottom: calc(18px + env(safe-area-inset-bottom,0));
+  z-index: 30;
+  background: #25a366;
+  color: #fff;
+  border-radius: 99px;
+  padding: 13px 20px;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 14px;
+  box-shadow: 0 6px 20px rgba(0,0,0,.25);
+}
+
+/* Kursor emas (desktop) */
+.cur {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 30px;
+  height: 30px;
+  border: 1px solid var(--gold);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 80;
+  opacity: 0;
+  transition: width .25s,height .25s,background .25s,opacity .3s;
+}
+
+.cur.hv {
+  width: 58px;
+  height: 58px;
+  background: rgba(201,164,92,.16);
+}
+
+/* Tombol musik latar */
+.mus {
+  position: fixed;
+  left: 18px;
+  bottom: calc(18px + env(safe-area-inset-bottom,0px));
+  z-index: 30;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  height: 46px;
+  padding: 0 18px 0 14px;
+  border-radius: 99px;
+  border: 1px solid var(--line);
+  background: var(--card);
+  color: var(--ink);
+  font: 500 13px Jost,sans-serif;
+  cursor: pointer;
+  box-shadow: 0 6px 20px rgba(0,0,0,.2);
+}
+
+/* Animasi equalizer */
+.eq {
+  display: flex;
+  align-items: flex-end;
+  gap: 2px;
+  height: 16px;
+}
+
+.eq i {
+  width: 3px;
+  height: 4px;
+  background: var(--gold);
+  border-radius: 1px;
+}
+
+/* Tombol musik latar */
+.mus.on .eq i {
+  animation: eqa 1s ease-in-out infinite;
+}
+
+/* Animasi equalizer */
+.eq i:nth-child(2) {
+  animation-delay: -.3s;
+}
+
+.eq i:nth-child(3) {
+  animation-delay: -.6s;
+}
+
+.eq i:nth-child(4) {
+  animation-delay: -.15s;
+}
+
+/* Tombol musik latar */
+.mus.wait {
+  animation: pulse2 2.4s infinite;
+}
+
+/* Responsif: HP kecil (lebar layar maksimal 520px) */
+@media (max-width: 520px) {
+  .mus {
+    padding: 0 14px 0 12px;
+  }
+}
+
+/* Responsif: Pengguna yang meminta animasi dikurangi (aksesibilitas) */
+@media (prefers-reduced-motion: reduce) {
+  .mus.on .eq i,
+  .mus.wait {
+    animation: none;
+  }
+
+  .eq i {
+    height: 10px;
+  }
+}

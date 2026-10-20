@@ -1,0 +1,139 @@
+/* ==========================================================
+   about.css — Bagian "Tentang kami".
+   ========================================================== */
+
+/* Tentang kami */
+.about .w {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  align-items: center;
+}
+
+.about p+p {
+  margin-top: 14px;
+}
+
+.about p {
+  color: var(--mute);
+  max-width: 480px;
+}
+
+/* Responsif: Tablet & HP (lebar layar maksimal 860px) */
+@media (max-width: 860px) {
+  .about .w {
+    grid-template-columns: minmax(0,1fr);
+  }
+}
+
+/* Komposisi foto: bingkai lengkung + foto bulat */
+.abt {
+  position: relative;
+  aspect-ratio: 1/1.08;
+  max-width: 520px;
+  width: 100%;
+}
+
+.abt .arch {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 76%;
+  height: 92%;
+  border-radius: 999px 999px 18px 18px;
+  overflow: hidden;
+  border: 1px solid var(--ink);
+}
+
+.abt .arch img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.abt .rg {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: 46%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 1px solid var(--ink);
+  box-shadow: 0 0 0 8px var(--bg);
+}
+
+.abt .rg img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.abt .lf {
+  position: absolute;
+  left: 62%;
+  top: 46%;
+  width: 40px;
+  color: var(--gold);
+}
+
+/* Daftar keunggulan bertanda lingkaran emas */
+.vals {
+  list-style: none;
+  padding: 0;
+  margin: 24px 0 8px;
+  display: grid;
+  gap: 14px;
+  max-width: 480px;
+}
+
+.vals li {
+  display: grid;
+  padding: 0 0 14px 28px;
+  position: relative;
+  border-bottom: 1px solid var(--line);
+}
+
+.vals li:before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: .5em;
+  width: 12px;
+  height: 12px;
+  border: 1px solid var(--gold);
+  border-radius: 50%;
+  background: radial-gradient(var(--gold) 38%,transparent 42%);
+}
+
+.vals b {
+  font: 500 22px 'Cormorant Garamond',serif;
+}
+
+.vals span {
+  font-size: 14.5px;
+  color: var(--mute);
+}
+
+/* Tentang kami */
+.about .tag {
+  font: italic 400 24px 'Cormorant Garamond',serif;
+  color: var(--goldd);
+  margin-top: 18px;
+}
+
+/* Responsif: Tablet & HP (lebar layar maksimal 860px) */
+@media (max-width: 860px) {
+  .abt {
+    margin: 0 auto 10px;
+    max-width: 400px;
+  }
+}
+
+/* Responsif: Tablet (lebar layar 600px - 860px) */
+@media (min-width: 600px) and (max-width: 860px) {
+  .about .w {
+    grid-template-columns: minmax(0,.9fr) minmax(0,1.1fr);
+    gap: 32px;
+  }
+}

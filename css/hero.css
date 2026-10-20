@@ -1,0 +1,591 @@
+/* ==========================================================
+   hero.css — Hero: judul, foto lengkung, ornamen emas, badge layanan, promo.
+   ========================================================== */
+
+/* Hero: tata letak dua kolom (teks kiri, foto kanan) */
+.hero {
+  padding: 56px 0 80px;
+}
+
+.hero .w {
+  display: grid;
+  grid-template-columns: 1.05fr 1fr;
+  gap: 40px;
+  align-items: center;
+}
+
+.hero p.lead {
+  font-size: 18px;
+  color: var(--mute);
+  max-width: 440px;
+  margin: 22px 0 30px;
+}
+
+/* Baris tombol aksi */
+.cta {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+/* Pil promo harga */
+.promo {
+  margin-top: 34px;
+  font-size: 14px;
+  color: var(--goldd);
+  border-top: 1px solid var(--line);
+  padding-top: 16px;
+  max-width: 440px;
+}
+
+/* Visual hero: bingkai foto + ornamen */
+.rings {
+  position: relative;
+  aspect-ratio: 1;
+  max-width: 520px;
+  width: 100%;
+  justify-self: end;
+}
+
+/* Hero: tata letak dua kolom (teks kiri, foto kanan) */
+.hero h1 {
+  animation: none;
+}
+
+/* Animasi judul per kata */
+.wd {
+  display: inline-block;
+  margin-right: .22em;
+  animation: in .9s both;
+  animation-delay: calc(var(--i)*.13s);
+}
+
+/* Hero: tata letak dua kolom (teks kiri, foto kanan) */
+.hero h1,
+.hero .lead,
+.hero .cta,
+.hero .promo {
+  animation: in .9s both;
+}
+
+.hero .lead {
+  animation-delay: .12s;
+}
+
+.hero .cta {
+  animation-delay: .22s;
+}
+
+.hero .promo {
+  animation-delay: .3s;
+}
+
+/* Responsif: Tablet & HP (lebar layar maksimal 860px) */
+@media (max-width: 860px) {
+  .hero .w {
+    grid-template-columns: minmax(0,1fr);
+  }
+
+  .rings {
+    justify-self: center;
+    max-width: 380px;
+  }
+}
+
+/* Visual hero: bingkai foto + ornamen */
+.rings {
+  aspect-ratio: auto;
+  height: 580px;
+  max-width: 500px;
+}
+
+.rings .orb {
+  position: absolute;
+  width: 400px;
+  height: 400px;
+  border-radius: 50%;
+  border: 1px solid var(--gold);
+  opacity: .6;
+  pointer-events: none;
+  animation: fl 7s ease-in-out infinite;
+}
+
+.rings .o1 {
+  right: -34px;
+  top: 24px;
+}
+
+.rings .o2 {
+  right: 34px;
+  top: 96px;
+  animation-delay: -3.5s;
+}
+
+/* Bingkai foto lengkung + slideshow */
+.arch2 {
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 78%;
+  height: 92%;
+  border-radius: 999px 999px 24px 24px;
+  overflow: hidden;
+  border: 1px solid var(--ink);
+  background: #111;
+  transition: transform .3s;
+}
+
+.arch2 img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transition: opacity 1.2s;
+  transform: scale(1.02);
+}
+
+.arch2 img.on {
+  opacity: 1;
+  animation: kb 8s ease-out forwards;
+}
+
+/* Penunjuk slideshow */
+.hdots {
+  position: absolute;
+  left: 50%;
+  bottom: 3%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 6px;
+  z-index: 2;
+}
+
+.hdots button {
+  width: 26px;
+  height: 14px;
+  padding: 0;
+  border: 0;
+  background: none;
+  position: relative;
+  cursor: pointer;
+}
+
+.hdots button:after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 5px;
+  height: 3px;
+  border-radius: 2px;
+  background: rgba(255,255,255,.5);
+}
+
+.hdots button.on:after {
+  background: var(--gold);
+}
+
+/* Pil promo harga */
+.promo {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  padding: 10px 18px;
+  max-width: none;
+  color: var(--ink);
+}
+
+.promo s {
+  color: var(--mute);
+}
+
+.promo b {
+  color: var(--goldd);
+  font-weight: 500;
+}
+
+.promo .dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--gold);
+  flex: none;
+  animation: pulse2 2s infinite;
+}
+
+/* Responsif: Tablet & HP (lebar layar maksimal 860px) */
+@media (max-width: 860px) {
+  .rings {
+    height: 470px;
+    max-width: 380px;
+    justify-self: center;
+  }
+
+  .rings .orb {
+    width: 300px;
+    height: 300px;
+  }
+}
+
+/* Responsif: Pengguna yang meminta animasi dikurangi (aksesibilitas) */
+@media (prefers-reduced-motion: reduce) {
+  .arch2 img.on {
+    animation: none;
+  }
+
+  .rings .orb,
+  .promo .dot {
+    animation: none;
+  }
+}
+
+/* Penunjuk slideshow */
+.hdots {
+  bottom: 6.5%;
+}
+
+/* Visual hero: bingkai foto + ornamen */
+.rings .aro {
+  position: absolute;
+  right: -14px;
+  top: -14px;
+  width: 78%;
+  height: 92%;
+  border-radius: 999px 999px 24px 24px;
+  border: 1px solid var(--gold);
+  opacity: .75;
+  pointer-events: none;
+}
+
+.rings .aro:after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: -5px;
+  width: 9px;
+  height: 9px;
+  margin-left: -4px;
+  border-radius: 50%;
+  background: var(--gold);
+}
+
+/* Ranting daun emas (ornamen) */
+.spr {
+  position: absolute;
+  z-index: 3;
+  color: var(--gold);
+  pointer-events: none;
+  transition: transform .3s;
+}
+
+.spr svg {
+  width: 100%;
+  height: auto;
+  display: block;
+  transform-origin: 50% 100%;
+  animation: sway 7s ease-in-out infinite;
+  filter: drop-shadow(0 4px 8px rgba(0,0,0,.25));
+}
+
+.spr.s1 {
+  left: -9%;
+  bottom: -3%;
+  width: 31%;
+}
+
+.spr.s2 {
+  right: -7%;
+  top: -5%;
+  width: 17%;
+  transform: scaleY(-1) rotate(8deg);
+}
+
+.spr.s2 svg {
+  animation-delay: -3.5s;
+}
+
+/* Bintang berkelip (ornamen) */
+.stw {
+  position: absolute;
+  z-index: 3;
+  color: var(--gold);
+  pointer-events: none;
+}
+
+.stw .st {
+  width: 100%;
+  height: auto;
+  display: block;
+  animation: twk 3.6s ease-in-out infinite;
+}
+
+.stw.w1 {
+  left: 12%;
+  top: 4%;
+  width: 22px;
+}
+
+.stw.w2 {
+  right: -3%;
+  top: 46%;
+  width: 16px;
+}
+
+.stw.w3 {
+  left: 3%;
+  top: 56%;
+  width: 14px;
+}
+
+.stw.w2 .st {
+  animation-delay: -1.2s;
+}
+
+.stw.w3 .st {
+  animation-delay: -2.4s;
+}
+
+/* Responsif: Tablet & HP (lebar layar maksimal 860px) */
+@media (max-width: 860px) {
+  .spr.s1 {
+    left: -6%;
+    width: 34%;
+  }
+
+  .spr.s2 {
+    right: -4%;
+    width: 20%;
+  }
+}
+
+/* Responsif: Pengguna yang meminta animasi dikurangi (aksesibilitas) */
+@media (prefers-reduced-motion: reduce) {
+  .spr svg,
+  .stw .st {
+    animation: none;
+  }
+
+  .stw .st {
+    opacity: .9;
+  }
+}
+
+/* Badge layanan (kolom di kiri foto) */
+.hbs {
+  position: absolute;
+  left: -9%;
+  top: 11%;
+  z-index: 4;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: flex-start;
+}
+
+/* Satu badge layanan */
+.hb {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 99px;
+  padding: 9px 18px 9px 13px;
+  font-size: 13.5px;
+  color: var(--ink);
+  text-decoration: none;
+  white-space: nowrap;
+  box-shadow: 0 10px 26px rgba(0,0,0,.25);
+  animation: fl 6s ease-in-out infinite;
+  transition: border-color .25s,background .25s;
+}
+
+.hb svg {
+  width: 17px;
+  height: 17px;
+  color: var(--gold);
+  flex: none;
+}
+
+.hb:hover {
+  border-color: var(--gold);
+}
+
+.hb:nth-child(2) {
+  margin-left: 24px;
+  animation-delay: -1.5s;
+}
+
+.hb:nth-child(3) {
+  margin-left: 8px;
+  animation-delay: -3s;
+}
+
+.hb:nth-child(4) {
+  margin-left: 28px;
+  animation-delay: -4.5s;
+}
+
+/* Responsif: HP kecil (lebar layar maksimal 520px) */
+@media (max-width: 520px) {
+  .hbs {
+    left: -4%;
+    top: 9%;
+    gap: 8px;
+  }
+
+  .hb {
+    font-size: 12px;
+    padding: 7px 13px 7px 10px;
+  }
+
+  .hb svg {
+    width: 15px;
+    height: 15px;
+  }
+
+  .hb:nth-child(2) {
+    margin-left: 14px;
+  }
+
+  .hb:nth-child(4) {
+    margin-left: 16px;
+  }
+}
+
+/* Responsif: Pengguna yang meminta animasi dikurangi (aksesibilitas) */
+@media (prefers-reduced-motion: reduce) {
+  .hb {
+    animation: none;
+  }
+}
+
+/* Badge layanan (kolom di kiri foto) */
+.hbs {
+  position: absolute;
+  inset: 0;
+  left: 0;
+  top: 0;
+  display: block;
+  pointer-events: none;
+  z-index: 4;
+  flex-direction: row;
+}
+
+/* Satu badge layanan */
+.hb {
+  position: absolute;
+  pointer-events: auto;
+  margin-left: 0!important;
+}
+
+.hb:nth-child(1) {
+  top: 7%;
+  right: 71%;
+}
+
+.hb:nth-child(2) {
+  top: 18.3%;
+  right: 78.5%;
+}
+
+.hb:nth-child(3) {
+  top: 29.5%;
+  right: 81%;
+}
+
+.hb:nth-child(4) {
+  top: 40.7%;
+  right: 81%;
+}
+
+/* Bintang berkelip (ornamen) */
+.stw.w1 {
+  left: 36%;
+  top: 2%;
+}
+
+/* Responsif: Tablet & HP (lebar layar maksimal 860px) */
+@media (max-width: 860px) {
+  .rings {
+    margin-bottom: 96px;
+  }
+
+  .hbs {
+    position: absolute;
+    inset: auto;
+    left: 0;
+    right: 0;
+    top: 100%;
+    margin-top: 16px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    justify-content: center;
+    pointer-events: auto;
+  }
+
+  .hbs .hb {
+    position: static;
+    font-size: 12.5px;
+    padding: 8px 14px 8px 11px;
+  }
+}
+
+/* Responsif: Desktop (lebar layar minimal 861px) */
+@media (min-width: 861px) {
+  .hbs {
+    position: absolute;
+    inset: auto;
+    left: auto;
+    top: 23%;
+    right: calc(78% - 16px);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 12px;
+    pointer-events: none;
+    z-index: 4;
+  }
+
+  .hbs .hb,
+  .hbs .hb:nth-child(n) {
+    position: static;
+    top: auto;
+    right: auto;
+    margin: 0!important;
+    min-width: 200px;
+    height: 42px;
+    font-size: 14px;
+    justify-content: flex-start;
+    animation-name: fl2;
+  }
+
+  .hbs .hb svg {
+    width: 18px;
+    height: 18px;
+  }
+
+  .spr.s1 {
+    left: -11%;
+    bottom: -3%;
+    width: 29%;
+  }
+}
+
+/* Hero: tata letak dua kolom (teks kiri, foto kanan) */
+.hero {
+  overflow-x: clip;
+}
+
+/* Responsif: Tablet (lebar layar 600px - 860px) */
+@media (min-width: 600px) and (max-width: 860px) {
+  .rings {
+    max-width: 440px;
+  }
+}

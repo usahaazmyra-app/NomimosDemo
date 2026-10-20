@@ -1,0 +1,70 @@
+/* ==========================================================
+   marquee-stats.css — Pita teks berjalan dan baris statistik.
+   ========================================================== */
+
+/* Baris statistik */
+.stats .w {
+  display: grid;
+  grid-template-columns: repeat(4,1fr);
+  border-block: 1px solid var(--line);
+}
+
+.stats div {
+  padding: 26px 10px;
+  text-align: center;
+}
+
+.stats b {
+  display: block;
+  font: 500 40px/1 'Cormorant Garamond',serif;
+}
+
+.stats span {
+  font-size: 13px;
+  color: var(--mute);
+}
+
+/* Pita teks berjalan */
+.mq {
+  overflow: hidden;
+  border-block: 1px solid var(--line);
+  padding: 14px 0;
+  white-space: nowrap;
+}
+
+/* Isi pita (diduplikasi agar tanpa putus) */
+.mt {
+  display: inline-block;
+  animation: mq 30s linear infinite;
+  font: italic 400 30px 'Cormorant Garamond',serif;
+}
+
+.mt b {
+  color: var(--gold);
+  margin: 0 26px;
+  font-style: normal;
+}
+
+/* Baris statistik */
+.stats i {
+  font-style: normal;
+}
+
+/* Responsif: Pengguna yang meminta animasi dikurangi (aksesibilitas) */
+@media (prefers-reduced-motion: reduce) {
+  .mt {
+    animation: none;
+  }
+}
+
+/* Responsif: Tablet & HP (lebar layar maksimal 860px) */
+@media (max-width: 860px) {
+  .stats .w {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+/* Pita teks berjalan */
+.mq:hover .mt {
+  animation-play-state: paused;
+}
