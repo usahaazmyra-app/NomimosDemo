@@ -3,6 +3,8 @@
  * --------------------------------------------------------------
  * Satu panel terbuka pada satu waktu. Berganti otomatis tiap 4,5 detik
  * sampai pengunjung berinteraksi (hover / klik / keyboard).
+ * Di HP (akordeon vertikal) pergantian otomatis DIMATIKAN karena tinggi
+ * panel berubah dan membuat halaman melompat saat di-scroll.
  */
 (() => {
   const { $, $$, reduceMotion } = NMS;
@@ -22,8 +24,9 @@
   };
   const stopAuto = () => { clearInterval(timer); wrapper.classList.remove('cy'); };  // 'cy' = animasi progres
 
+  const stacked = matchMedia('(max-width: 700px)');         // HP: panel tersusun vertikal
   if (reduceMotion) wrapper.classList.remove('cy');
-  else timer = setInterval(() => open((current + 1) % panels.length), INTERVAL);
+  else timer = setInterval(() => { if (!stacked.matches) open((current + 1) % panels.length); }, INTERVAL);
 
   panels.forEach((panel, k) => {
     const activate = () => { stopAuto(); open(k); };

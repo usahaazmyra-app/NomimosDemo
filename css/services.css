@@ -279,8 +279,21 @@
     transition: height .55s cubic-bezier(.2,.7,.2,1);
   }
 
+  /* PENTING: flex: none wajib ada. Tanpa ini aturan desktop ".pn.on { flex: 4 }"
+     membuat flex-basis 0% sehingga panel aktif tingginya menjadi 0 di HP. */
   .pn.on {
-    height: 430px;
+    flex: none;
+    height: 470px;
+  }
+
+  /* Gradasi lebih pekat agar teks terbaca di atas foto */
+  .pn.on::after {
+    background: linear-gradient(transparent 15%, rgba(5,15,20,.93));
+  }
+
+  /* Garis progres hanya untuk pergantian otomatis (tablet & desktop) */
+  .pr {
+    display: none;
   }
 
   .pni {
