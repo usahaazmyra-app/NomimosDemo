@@ -149,8 +149,8 @@ section {
   }
 }
 
-/* Responsif: Tablet & HP (lebar layar maksimal 860px) */
-@media (max-width: 860px) {
+/* Responsif: HP (lebar layar maksimal 700px) */
+@media (max-width: 700px) {
   section {
     padding: 60px 0;
   }
@@ -170,4 +170,19 @@ html {
   --line: rgba(241,238,232,.18);
   --navbg: rgba(21,23,26,.9);
   --goldd: #D8B56E;
+}
+
+/* Responsif: HP (lebar layar maksimal 700px) — jarak antar bagian lebih rapat */
+@media (max-width: 700px) {
+  section {
+    padding: 52px 0;
+  }
+
+  .head {
+    margin-bottom: 26px;
+  }
+
+  h2 {
+    font-size: clamp(30px, 8.6vw, 38px);
+  }
 }

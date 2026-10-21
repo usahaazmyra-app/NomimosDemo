@@ -80,8 +80,8 @@
   animation-delay: .3s;
 }
 
-/* Responsif: Tablet & HP (lebar layar maksimal 860px) */
-@media (max-width: 860px) {
+/* Responsif: HP (lebar layar maksimal 700px) */
+@media (max-width: 700px) {
   .hero .w {
     grid-template-columns: minmax(0,1fr);
   }
@@ -218,8 +218,8 @@
   animation: pulse2 2s infinite;
 }
 
-/* Responsif: Tablet & HP (lebar layar maksimal 860px) */
-@media (max-width: 860px) {
+/* Responsif: HP (lebar layar maksimal 700px) */
+@media (max-width: 700px) {
   .rings {
     height: 470px;
     max-width: 380px;
@@ -350,8 +350,8 @@
   animation-delay: -2.4s;
 }
 
-/* Responsif: Tablet & HP (lebar layar maksimal 860px) */
-@media (max-width: 860px) {
+/* Responsif: HP (lebar layar maksimal 700px) */
+@media (max-width: 700px) {
   .spr.s1 {
     left: -6%;
     width: 34%;
@@ -510,8 +510,8 @@
   top: 2%;
 }
 
-/* Responsif: Tablet & HP (lebar layar maksimal 860px) */
-@media (max-width: 860px) {
+/* Responsif: HP (lebar layar maksimal 700px) */
+@media (max-width: 1000px) {
   .rings {
     margin-bottom: 96px;
   }
@@ -537,8 +537,8 @@
   }
 }
 
-/* Responsif: Desktop (lebar layar minimal 861px) */
-@media (min-width: 861px) {
+/* Responsif: Desktop lebar (minimal 1001px) */
+@media (min-width: 1001px) {
   .hbs {
     position: absolute;
     inset: auto;
@@ -583,9 +583,75 @@
   overflow-x: clip;
 }
 
-/* Responsif: Tablet (lebar layar 600px - 860px) */
-@media (min-width: 600px) and (max-width: 860px) {
+
+/* Responsif: Tablet & laptop kecil (lebar layar 701px - 1000px) — hero tetap 2 kolom */
+@media (min-width: 701px) and (max-width: 1000px) {
+  .hero {
+    padding: 40px 0 64px;
+  }
+
+  .hero .w {
+    grid-template-columns: minmax(0,1fr) minmax(0,.95fr);
+    gap: 28px;
+  }
+
+  .hero h1 {
+    font-size: clamp(40px, 6.6vw, 62px);
+  }
+
+  .hero p.lead {
+    font-size: 16px;
+  }
+
   .rings {
-    max-width: 440px;
+    height: 500px;
+    max-width: 100%;
+  }
+
+  .rings .orb {
+    width: 320px;
+    height: 320px;
+  }
+}
+
+/* Responsif: HP (lebar layar maksimal 700px) — hero lebih ringkas & rapi */
+@media (max-width: 700px) {
+  .hero {
+    padding: 28px 0 40px;
+  }
+
+  .hero h1 {
+    font-size: clamp(38px, 11.5vw, 50px);
+  }
+
+  .hero p.lead {
+    font-size: 16px;
+    margin: 16px 0 22px;
+  }
+
+  .promo {
+    flex-wrap: nowrap;
+    align-items: flex-start;
+    padding: 12px 16px;
+    font-size: 13.5px;
+  }
+
+  .promo .dot {
+    margin-top: .42em;
+  }
+
+  .rings {
+    height: 440px;
+    max-width: 340px;
+  }
+
+  .stw.w2,
+  .stw.w3 {
+    display: none;
+  }
+
+  .spr.s1 {
+    width: 30%;
+    left: -4%;
   }
 }

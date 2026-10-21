@@ -155,8 +155,8 @@
   border-radius: 99px;
 }
 
-/* Responsif: Tablet & HP (lebar layar maksimal 860px) */
-@media (max-width: 860px) {
+/* Responsif: HP (lebar layar maksimal 700px) */
+@media (max-width: 700px) {
   .story .w {
     grid-template-columns: minmax(0,1fr);
   }
@@ -246,8 +246,8 @@
   z-index: 1;
 }
 
-/* Responsif: Tablet & HP (lebar layar maksimal 860px) */
-@media (max-width: 860px) {
+/* Responsif: HP (lebar layar maksimal 700px) */
+@media (max-width: 700px) {
   .gal {
     grid-template-columns: 1fr 1fr;
   }
@@ -270,4 +270,15 @@
   max-height: 88vh;
   border-radius: 14px;
   box-shadow: 0 20px 60px rgba(0,0,0,.5);
+}
+
+/* Responsif: Tablet (lebar layar 701px - 1000px) — cerita Rino & Jojo tetap 2 kolom, galeri 4 foto */
+@media (min-width: 701px) and (max-width: 1000px) {
+  .story .w {
+    gap: 24px;
+  }
+
+  .gal {
+    gap: 10px;
+  }
 }

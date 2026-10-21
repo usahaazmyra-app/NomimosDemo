@@ -265,8 +265,8 @@
   outline-offset: 3px;
 }
 
-/* Responsif: Tablet & HP (lebar layar maksimal 860px) */
-@media (max-width: 860px) {
+/* Responsif: HP (lebar layar maksimal 700px) */
+@media (max-width: 700px) {
   .sv2 {
     flex-direction: column;
     height: auto;
@@ -320,5 +320,25 @@
   .cy .pn.on .pr {
     animation: none;
     width: 100%;
+  }
+}
+
+/* Responsif: Tablet (lebar layar 701px - 1000px) — panel horizontal lebih pendek */
+@media (min-width: 701px) and (max-width: 1000px) {
+  .sv2 {
+    height: 440px;
+  }
+
+  .pn.on {
+    flex: 3.4;
+  }
+
+  .pn.on .pni {
+    left: 32px;
+    top: 56px;
+  }
+
+  .pnc {
+    padding: 20px;
   }
 }

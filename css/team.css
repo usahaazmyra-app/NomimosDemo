@@ -62,8 +62,8 @@
   background: #000;
 }
 
-/* Responsif: Tablet & HP (lebar layar maksimal 860px) */
-@media (max-width: 860px) {
+/* Responsif: HP (lebar layar maksimal 700px) */
+@media (max-width: 700px) {
   .ng {
     grid-template-columns: 1fr;
   }
@@ -134,8 +134,8 @@
   max-height: 330px;
 }
 
-/* Responsif: Tablet & HP (lebar layar maksimal 860px) */
-@media (max-width: 860px) {
+/* Responsif: HP (lebar layar maksimal 700px) */
+@media (max-width: 700px) {
   .team {
     padding: 56px 0;
   }
@@ -160,5 +160,27 @@
 
   .tq2 {
     font-size: 24px;
+  }
+}
+
+/* Responsif: Tablet (lebar layar 701px - 1000px) — senior team 4 + 3 kartu agar nama terbaca */
+@media (min-width: 701px) and (max-width: 1000px) {
+  .r7 {
+    grid-template-columns: repeat(4,1fr);
+  }
+
+  .r7 .card:hover {
+    transform: translateY(-6px) !important;
+  }
+}
+
+/* Responsif: HP (lebar layar maksimal 700px) — blok "New generation" lebih ringkas */
+@media (max-width: 700px) {
+  .ng > video {
+    max-height: 210px;
+  }
+
+  .ng > img {
+    max-height: 260px;
   }
 }

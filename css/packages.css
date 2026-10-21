@@ -93,8 +93,8 @@
   color: var(--mute);
 }
 
-/* Responsif: Tablet & HP (lebar layar maksimal 860px) */
-@media (max-width: 860px) {
+/* Responsif: HP (lebar layar maksimal 700px) */
+@media (max-width: 700px) {
   .pk.on {
     grid-template-columns: minmax(0,1fr);
   }
@@ -124,13 +124,6 @@
   overflow-wrap: anywhere;
 }
 
-/* Responsif: Tablet (lebar layar 600px - 860px) */
-@media (min-width: 600px) and (max-width: 860px) {
-  .pk.on {
-    grid-template-columns: minmax(0,.9fr) minmax(0,1.1fr);
-    gap: 26px;
-  }
-}
 
 /* Responsif: HP kecil (lebar layar maksimal 520px) */
 @media (max-width: 520px) {

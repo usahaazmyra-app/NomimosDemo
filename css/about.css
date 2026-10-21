@@ -19,8 +19,8 @@
   max-width: 480px;
 }
 
-/* Responsif: Tablet & HP (lebar layar maksimal 860px) */
-@media (max-width: 860px) {
+/* Responsif: HP (lebar layar maksimal 700px) */
+@media (max-width: 700px) {
   .about .w {
     grid-template-columns: minmax(0,1fr);
   }
@@ -122,18 +122,11 @@
   margin-top: 18px;
 }
 
-/* Responsif: Tablet & HP (lebar layar maksimal 860px) */
-@media (max-width: 860px) {
+/* Responsif: HP (lebar layar maksimal 700px) */
+@media (max-width: 700px) {
   .abt {
     margin: 0 auto 10px;
     max-width: 400px;
   }
 }
 
-/* Responsif: Tablet (lebar layar 600px - 860px) */
-@media (min-width: 600px) and (max-width: 860px) {
-  .about .w {
-    grid-template-columns: minmax(0,.9fr) minmax(0,1.1fr);
-    gap: 32px;
-  }
-}

@@ -96,8 +96,8 @@ input::-webkit-calendar-picker-indicator {
   color: var(--gold);
 }
 
-/* Responsif: Tablet & HP (lebar layar maksimal 860px) */
-@media (max-width: 860px) {
+/* Responsif: HP (lebar layar maksimal 700px) */
+@media (max-width: 700px) {
   .contact .w {
     grid-template-columns: minmax(0,1fr);
   }

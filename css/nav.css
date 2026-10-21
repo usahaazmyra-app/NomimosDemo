@@ -54,8 +54,8 @@ nav ul a:hover {
   color: var(--ink);
 }
 
-/* Responsif: Tablet & HP (lebar layar maksimal 860px) */
-@media (max-width: 860px) {
+/* Responsif: HP (lebar layar maksimal 700px) */
+@media (max-width: 700px) {
   nav ul {
     display: none;
   }
@@ -179,4 +179,124 @@ nav.hide {
 /* Navbar menempel di atas, bisa sembunyi saat scroll turun */
 nav ul a.is-active {
   color: var(--ink);
+}
+
+/* Responsif: HP (lebar layar maksimal 520px) — navbar muat dalam satu baris */
+@media (max-width: 520px) {
+  .logo {
+    font-size: 16px;
+    gap: 9px;
+  }
+
+  .lm img {
+    height: 38px;
+  }
+
+  .nr {
+    gap: 8px;
+  }
+
+  nav .nr .btn {
+    white-space: nowrap;
+    padding: 9px 13px !important;
+    font-size: 13px !important;
+  }
+}
+
+/* Responsif: HP kecil (lebar layar maksimal 380px) — sembunyikan tulisan, logo tetap tampil */
+@media (max-width: 380px) {
+  .lt {
+    display: none;
+  }
+}
+
+/* Tombol menu (hamburger) — disembunyikan di desktop */
+.burger {
+  display: none;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  background: none;
+  cursor: pointer;
+  position: relative;
+}
+
+.burger span {
+  position: absolute;
+  left: 11px;
+  right: 11px;
+  height: 1.5px;
+  background: var(--ink);
+  transition: transform .3s, opacity .3s;
+}
+
+.burger span:nth-child(1) { top: 14px; }
+.burger span:nth-child(2) { top: 19px; }
+.burger span:nth-child(3) { top: 24px; }
+
+nav.menu-open .burger span:nth-child(1) { transform: translateY(5px) rotate(45deg); }
+nav.menu-open .burger span:nth-child(2) { opacity: 0; }
+nav.menu-open .burger span:nth-child(3) { transform: translateY(-5px) rotate(-45deg); }
+
+.menu-cta {
+  display: none;
+}
+
+/* Responsif: Tablet & HP (lebar layar maksimal 1000px) — menu menjadi dropdown */
+@media (max-width: 1000px) {
+  .burger {
+    display: block;
+  }
+
+  nav ul {
+    display: none;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 100%;
+    flex-direction: column;
+    gap: 0;
+    padding: 6px 22px 20px;
+    background: var(--bg);
+    border-bottom: 1px solid var(--line);
+    box-shadow: 0 18px 30px rgba(0,0,0,.18);
+  }
+
+  nav.menu-open ul {
+    display: flex;
+  }
+
+  nav ul li a {
+    display: block;
+    padding: 14px 4px;
+    font-size: 17px;
+    color: var(--ink);
+    border-bottom: 1px solid var(--line);
+  }
+
+  nav ul li.menu-cta a,
+  nav ul li:last-child a {
+    border-bottom: 0;
+  }
+}
+
+/* Responsif: HP (lebar layar maksimal 700px) — tombol konsultasi pindah ke dalam menu */
+@media (max-width: 700px) {
+  nav .nr > .btn {
+    display: none !important;
+  }
+
+  .menu-cta {
+    display: block;
+    padding-top: 12px;
+  }
+
+  nav ul li.menu-cta a {
+    display: inline-block;
+    padding: 12px 26px;
+    font-size: 15px;
+    color: #141414;
+  }
 }

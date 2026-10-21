@@ -138,3 +138,42 @@
     height: 10px;
   }
 }
+
+/* Tombol WhatsApp: ikon + teks */
+.wa {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.wa svg {
+  width: 20px;
+  height: 20px;
+  flex: none;
+}
+
+/* Responsif: HP (lebar layar maksimal 700px) — tombol melayang hanya ikon agar tidak menutupi konten */
+@media (max-width: 700px) {
+  .wa {
+    width: 52px;
+    height: 52px;
+    padding: 0;
+    justify-content: center;
+  }
+
+  .wa span {
+    display: none;
+  }
+
+  .mus {
+    width: 46px;
+    height: 46px;
+    padding: 0;
+    justify-content: center;
+    gap: 0;
+  }
+
+  .mus #mlb {
+    display: none;
+  }
+}

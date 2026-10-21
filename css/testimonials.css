@@ -194,8 +194,8 @@
   margin-top: 34px;
 }
 
-/* Responsif: Tablet & HP (lebar layar maksimal 860px) */
-@media (max-width: 860px) {
+/* Responsif: HP (lebar layar maksimal 700px) */
+@media (max-width: 700px) {
   .tmg {
     grid-template-columns: 1fr;
     gap: 34px;
@@ -213,5 +213,16 @@
   .tmv .c1 img {
     transition: none;
     transform: none;
+  }
+}
+
+/* Responsif: Tablet (lebar layar 701px - 1000px) — dua kolom diperkecil */
+@media (min-width: 701px) and (max-width: 1000px) {
+  .tmg {
+    gap: 32px;
+  }
+
+  .tmv {
+    max-width: 320px;
   }
 }
