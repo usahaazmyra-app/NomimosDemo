@@ -176,11 +176,65 @@
 
 /* Responsif: HP (lebar layar maksimal 700px) — blok "New generation" lebih ringkas */
 @media (max-width: 700px) {
-  .ng > video {
+  .ng > .ngv {
     max-height: 210px;
   }
 
   .ng > img {
     max-height: 260px;
   }
+}
+
+/* Video "New generation" yang bisa diklik: pembungkus + tombol putar */
+.ngv {
+  position: relative;
+  cursor: pointer;
+}
+
+.ngv video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform .6s;
+}
+
+.ngv:hover video {
+  transform: scale(1.04);
+}
+
+.ngp {
+  position: absolute;
+  left: 16px;
+  bottom: 16px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 16px 9px 12px;
+  border-radius: 99px;
+  background: rgba(20,20,20,.62);
+  border: 1px solid rgba(255,255,255,.3);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  color: #f4f1ea;
+  font-size: 13px;
+  font-weight: 500;
+  transition: background .25s, border-color .25s;
+}
+
+.ngp svg {
+  width: 16px;
+  height: 16px;
+  color: var(--gold);
+}
+
+.ngv:hover .ngp,
+.ngv:focus-visible .ngp {
+  background: rgba(20,20,20,.82);
+  border-color: var(--gold);
+}
+
+.ngv:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 3px;
 }

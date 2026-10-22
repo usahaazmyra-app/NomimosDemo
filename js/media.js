@@ -41,6 +41,13 @@
     const trigger = event.target.closest('[data-video]');
     if (trigger) NMS.openVideo(trigger.dataset.video);
   });
+  // Pemicu berupa div role="button" (mis. video tim) juga bisa dibuka dengan Enter / Spasi
+  document.addEventListener('keydown', event => {
+    if ((event.key === 'Enter' || event.key === ' ') && event.target.matches('[data-video][role="button"]')) {
+      event.preventDefault();
+      NMS.openVideo(event.target.dataset.video);
+    }
+  });
   $('.x', videoBox).addEventListener('click', closeVideo);
   videoBox.addEventListener('click', e => { if (e.target === videoBox) closeVideo(); });
 

@@ -116,7 +116,7 @@
 
 .lb video {
   max-height: 86vh;
-  max-width: min(92vw,520px);
+  max-width: min(94vw,980px);   /* lebar untuk video landscape; video vertikal dibatasi tinggi 86vh */
   border-radius: 16px;
   background: #000;
 }
