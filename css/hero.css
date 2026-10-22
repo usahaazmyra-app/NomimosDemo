@@ -558,7 +558,9 @@
   animation-delay: -4.5s;
 }
 
-/* Responsif: Tablet & laptop kecil (lebar layar maksimal 1000px) — badge sedikit lebih kecil */
+/* Responsif: Tablet & HP (lebar layar maksimal 1000px) — badge di empat sudut foto.
+   Atas: di area tirai/pepohonan (tanpa objek). Bawah: di luar bingkai foto.
+   Jadi pasangan pengantin tidak pernah tertutup. */
 @media (max-width: 1000px) {
   .hb {
     height: 36px;
@@ -572,52 +574,101 @@
     height: 16px;
   }
 
+  /* 1. Kiri atas — Wedding Organizer */
   .hb:nth-child(1) {
-    right: calc(78% - 34px);
+    top: 2%;
+    left: 0;
+    right: auto;
   }
 
+  /* 2. Kiri bawah — Foto & Video */
   .hb:nth-child(2) {
-    right: calc(78% - 30px);
+    top: 91.5%;
+    left: 2%;
+    right: auto;
+  }
+
+  /* 3. Kanan bawah — Master of Ceremony */
+  .hb:nth-child(3) {
+    top: 91.5%;
+    left: auto;
+    right: 2%;
+  }
+
+  /* 4. Kanan atas — Content Creator */
+  .hb:nth-child(4) {
+    top: 2%;
+    left: auto;
+    right: 0;
   }
 }
 
-/* Responsif: HP (lebar layar maksimal 700px) — badge ringkas, teks boleh dua baris */
+/* Responsif: HP (lebar layar maksimal 700px) — foto lebih besar & di tengah, badge satu baris */
 @media (max-width: 700px) {
+  .rings {
+    max-width: 346px;
+    height: 470px;
+    margin-bottom: 30px;
+  }
+
+  /* Foto dan garis lengkung emas dipusatkan (lebar 82%) */
+  .arch2 {
+    left: 9%;
+    right: auto;
+    width: 82%;
+    height: 90%;
+  }
+
+  .aro {
+    left: calc(9% + 14px);
+    right: auto;
+    top: -12px;
+    width: 82%;
+    height: 90%;
+  }
+
+  .rings .orb {
+    opacity: .35;
+  }
+
   .hb {
-    width: 98px;
-    height: auto;
-    min-height: 34px;
-    padding: 6px 9px 6px 9px;
-    gap: 6px;
-    border-radius: 16px;
-    font-size: 11px;
-    line-height: 1.15;
-    white-space: normal;
+    height: 34px;
+    padding: 0 13px 0 10px;
+    gap: 7px;
+    font-size: 12px;
+    line-height: 1;
   }
 
   .hb svg {
-    width: 14px;
-    height: 14px;
+    width: 15px;
+    height: 15px;
   }
 
-  .hb:nth-child(1) {
-    right: calc(78% - 30px);
+  /* Ranting emas dipindah ke sisi tengah foto agar tidak bertabrakan dengan badge */
+  .spr.s1 {
+    left: -2%;
+    bottom: 14%;
+    width: 17%;
   }
 
-  .hb:nth-child(2) {
-    right: calc(78% - 26px);
+  .spr.s2 {
+    right: -2%;
+    top: 14%;
+    width: 13%;
+  }
+}
+
+/* Responsif: HP sempit (lebar layar maksimal 359px) — badge sedikit lebih kecil */
+@media (max-width: 359px) {
+  .hb {
+    padding: 0 10px 0 8px;
+    gap: 5px;
+    font-size: 11px;
   }
 
-  .hb:nth-child(3) {
-    right: 6%;
-  }
-
-  .hb:nth-child(4) {
-    right: 19%;
-  }
-
-  .rings {
-    margin-bottom: 36px;
+  .hb svg {
+    width: 13px;
+    height: 13px;
   }
 }
 
