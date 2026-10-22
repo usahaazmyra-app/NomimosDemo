@@ -375,135 +375,6 @@
   }
 }
 
-/* Badge layanan (kolom di kiri foto) */
-.hbs {
-  position: absolute;
-  left: -9%;
-  top: 11%;
-  z-index: 4;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  align-items: flex-start;
-}
-
-/* Satu badge layanan */
-.hb {
-  display: flex;
-  align-items: center;
-  gap: 9px;
-  background: var(--card);
-  border: 1px solid var(--line);
-  border-radius: 99px;
-  padding: 9px 18px 9px 13px;
-  font-size: 13.5px;
-  color: var(--ink);
-  text-decoration: none;
-  white-space: nowrap;
-  box-shadow: 0 10px 26px rgba(0,0,0,.25);
-  animation: fl 6s ease-in-out infinite;
-  transition: border-color .25s,background .25s;
-}
-
-.hb svg {
-  width: 17px;
-  height: 17px;
-  color: var(--gold);
-  flex: none;
-}
-
-.hb:hover {
-  border-color: var(--gold);
-}
-
-.hb:nth-child(2) {
-  margin-left: 24px;
-  animation-delay: -1.5s;
-}
-
-.hb:nth-child(3) {
-  margin-left: 8px;
-  animation-delay: -3s;
-}
-
-.hb:nth-child(4) {
-  margin-left: 28px;
-  animation-delay: -4.5s;
-}
-
-/* Responsif: HP kecil (lebar layar maksimal 520px) */
-@media (max-width: 520px) {
-  .hbs {
-    left: -4%;
-    top: 9%;
-    gap: 8px;
-  }
-
-  .hb {
-    font-size: 12px;
-    padding: 7px 13px 7px 10px;
-  }
-
-  .hb svg {
-    width: 15px;
-    height: 15px;
-  }
-
-  .hb:nth-child(2) {
-    margin-left: 14px;
-  }
-
-  .hb:nth-child(4) {
-    margin-left: 16px;
-  }
-}
-
-/* Responsif: Pengguna yang meminta animasi dikurangi (aksesibilitas) */
-@media (prefers-reduced-motion: reduce) {
-  .hb {
-    animation: none;
-  }
-}
-
-/* Badge layanan (kolom di kiri foto) */
-.hbs {
-  position: absolute;
-  inset: 0;
-  left: 0;
-  top: 0;
-  display: block;
-  pointer-events: none;
-  z-index: 4;
-  flex-direction: row;
-}
-
-/* Satu badge layanan */
-.hb {
-  position: absolute;
-  pointer-events: auto;
-  margin-left: 0!important;
-}
-
-.hb:nth-child(1) {
-  top: 7%;
-  right: 71%;
-}
-
-.hb:nth-child(2) {
-  top: 18.3%;
-  right: 78.5%;
-}
-
-.hb:nth-child(3) {
-  top: 29.5%;
-  right: 81%;
-}
-
-.hb:nth-child(4) {
-  top: 40.7%;
-  right: 81%;
-}
-
 /* Bintang berkelip (ornamen) */
 .stw.w1 {
   left: 36%;
@@ -513,63 +384,21 @@
 /* Responsif: HP (lebar layar maksimal 700px) */
 @media (max-width: 1000px) {
   .rings {
-    margin-bottom: 96px;
+    margin-bottom: 40px;
   }
 
-  .hbs {
-    position: absolute;
-    inset: auto;
-    left: 0;
-    right: 0;
-    top: 100%;
-    margin-top: 16px;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-    justify-content: center;
-    pointer-events: auto;
-  }
+  
 
-  .hbs .hb {
-    position: static;
-    font-size: 12.5px;
-    padding: 8px 14px 8px 11px;
-  }
+  
 }
 
 /* Responsif: Desktop lebar (minimal 1001px) */
 @media (min-width: 1001px) {
-  .hbs {
-    position: absolute;
-    inset: auto;
-    left: auto;
-    top: 23%;
-    right: calc(78% - 16px);
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-    gap: 12px;
-    pointer-events: none;
-    z-index: 4;
-  }
+  
 
-  .hbs .hb,
-  .hbs .hb:nth-child(n) {
-    position: static;
-    top: auto;
-    right: auto;
-    margin: 0!important;
-    min-width: 200px;
-    height: 42px;
-    font-size: 14px;
-    justify-content: flex-start;
-    animation-name: fl2;
-  }
+  
 
-  .hbs .hb svg {
-    width: 18px;
-    height: 18px;
-  }
+  
 
   .spr.s1 {
     left: -11%;
@@ -582,7 +411,6 @@
 .hero {
   overflow-x: clip;
 }
-
 
 /* Responsif: Tablet & laptop kecil (lebar layar 701px - 1000px) — hero tetap 2 kolom */
 @media (min-width: 701px) and (max-width: 1000px) {
@@ -653,5 +481,149 @@
   .spr.s1 {
     width: 30%;
     left: -4%;
+  }
+}
+
+/* ==========================================================
+   Badge layanan — tersebar mengelilingi foto
+   Posisi memakai persen terhadap kotak .rings supaya ikut skala.
+   Bingkai foto: kiri 22%, lebar 78%, tinggi 92% (lihat .arch2).
+   Aturan: badge tidak menutupi pasangan pengantin; hanya menimpa
+   tepi foto (bunga/tirai) atau berada di luar bingkai.
+   Urutan di HTML: 1 Wedding Organizer, 2 Foto & Video,
+   3 Master of Ceremony, 4 Content Creator.
+   ========================================================== */
+.hbs {
+  position: absolute;
+  inset: 0;
+  z-index: 4;
+  pointer-events: none;          /* wadah tidak menghalangi klik; badge diaktifkan lagi di bawah */
+}
+
+.hb {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  height: 42px;
+  padding: 0 18px 0 13px;
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 99px;
+  font-size: 13.5px;
+  color: var(--ink);
+  text-decoration: none;
+  white-space: nowrap;
+  box-shadow: 0 10px 26px rgba(0,0,0,.25);
+  pointer-events: auto;
+  animation: fl2 6s ease-in-out infinite;
+  transition: border-color .25s;
+}
+
+.hb svg {
+  width: 18px;
+  height: 18px;
+  flex: none;
+  color: var(--gold);
+}
+
+.hb:hover {
+  border-color: var(--gold);
+}
+
+/* 1. Kiri atas: menempel di lengkung kiri, hanya menimpa tirai/bunga */
+.hb:nth-child(1) {
+  top: 15%;
+  right: calc(78% - 40px);
+}
+
+/* 2. Kiri bawah: menempel di sisi kiri foto (di atas ranting emas) */
+.hb:nth-child(2) {
+  top: 46%;
+  right: calc(78% - 34px);
+  animation-delay: -1.5s;
+}
+
+/* 3. Kanan bawah: tepat di bawah bingkai, tidak menutupi foto sama sekali */
+.hb:nth-child(3) {
+  top: 94%;
+  right: 10%;
+  animation-delay: -3s;
+}
+
+/* 4. Kanan atas: di atas tirai putih (area foto tanpa objek) */
+.hb:nth-child(4) {
+  top: 7.5%;
+  right: 21%;
+  animation-delay: -4.5s;
+}
+
+/* Responsif: Tablet & laptop kecil (lebar layar maksimal 1000px) — badge sedikit lebih kecil */
+@media (max-width: 1000px) {
+  .hb {
+    height: 36px;
+    padding: 0 14px 0 11px;
+    gap: 7px;
+    font-size: 12.5px;
+  }
+
+  .hb svg {
+    width: 16px;
+    height: 16px;
+  }
+
+  .hb:nth-child(1) {
+    right: calc(78% - 34px);
+  }
+
+  .hb:nth-child(2) {
+    right: calc(78% - 30px);
+  }
+}
+
+/* Responsif: HP (lebar layar maksimal 700px) — badge ringkas, teks boleh dua baris */
+@media (max-width: 700px) {
+  .hb {
+    width: 98px;
+    height: auto;
+    min-height: 34px;
+    padding: 6px 9px 6px 9px;
+    gap: 6px;
+    border-radius: 16px;
+    font-size: 11px;
+    line-height: 1.15;
+    white-space: normal;
+  }
+
+  .hb svg {
+    width: 14px;
+    height: 14px;
+  }
+
+  .hb:nth-child(1) {
+    right: calc(78% - 30px);
+  }
+
+  .hb:nth-child(2) {
+    right: calc(78% - 26px);
+  }
+
+  .hb:nth-child(3) {
+    right: 6%;
+  }
+
+  .hb:nth-child(4) {
+    right: 19%;
+  }
+
+  .rings {
+    margin-bottom: 36px;
+  }
+}
+
+/* Responsif: Pengguna yang meminta animasi dikurangi (aksesibilitas) */
+@media (prefers-reduced-motion: reduce) {
+  .hb {
+    animation: none;
   }
 }
