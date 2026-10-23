@@ -485,14 +485,84 @@
 }
 
 /* ==========================================================
-   Badge layanan — tersebar mengelilingi foto
-   Posisi memakai persen terhadap kotak .rings supaya ikut skala.
-   Bingkai foto: kiri 22%, lebar 78%, tinggi 92% (lihat .arch2).
-   Aturan: badge tidak menutupi pasangan pengantin; hanya menimpa
-   tepi foto (bunga/tirai) atau berada di luar bingkai.
+   Komposisi visual hero: foto di tengah, badge kiri & kanan
+   ----------------------------------------------------------
+   Variabel (diatur per ukuran layar):
+     --al  jarak bingkai foto dari kiri kotak .rings
+     --aw  lebar bingkai foto
+     --ov  seberapa jauh badge menimpa tepi foto
+   Badge kiri (1,2) menempel di sisi kiri foto, badge kanan (3,4)
+   menempel di sisi kanan foto, sehingga seimbang dan pasangan
+   pengantin di tengah foto tidak tertutup.
    Urutan di HTML: 1 Wedding Organizer, 2 Foto & Video,
    3 Master of Ceremony, 4 Content Creator.
    ========================================================== */
+.rings {
+  --al: 18%;
+  --aw: 60%;
+  --ov: 30px;
+  max-width: 520px;
+  height: 600px;
+}
+
+.arch2 {
+  left: var(--al);
+  right: auto;
+  width: var(--aw);
+  height: 92%;
+}
+
+.aro {
+  left: calc(var(--al) + 14px);
+  right: auto;
+  top: -14px;
+  width: var(--aw);
+  height: 92%;
+}
+
+/* Lingkaran garis emas dipusatkan di belakang foto */
+.rings .orb {
+  left: 50%;
+  right: auto;
+}
+
+.rings .o1 {
+  margin-left: -170px;
+}
+
+.rings .o2 {
+  margin-left: -240px;
+}
+
+/* Ornamen: ranting di kiri bawah & kanan atas, bintang di sela badge */
+.spr.s1 {
+  left: 1%;
+  bottom: -2%;
+  width: 17%;
+}
+
+.spr.s2 {
+  right: 1%;
+  top: -3%;
+  width: 12%;
+}
+
+.stw.w1 {
+  left: 36%;
+  top: 1%;
+}
+
+.stw.w2 {
+  right: 10%;
+  top: 4%;
+}
+
+.stw.w3 {
+  left: 7%;
+  top: 80%;
+}
+
+/* Badge layanan */
 .hbs {
   position: absolute;
   inset: 0;
@@ -531,139 +601,123 @@
   border-color: var(--gold);
 }
 
-/* 1. Kiri atas: menempel di lengkung kiri, hanya menimpa tirai/bunga */
-.hb:nth-child(1) {
-  top: 15%;
-  right: calc(78% - 40px);
+/* Kiri: ujung kanan badge menimpa tepi kiri foto sejauh --ov */
+.hb:nth-child(1),
+.hb:nth-child(2) {
+  left: auto;
+  right: calc(100% - var(--al) - var(--ov));
 }
 
-/* 2. Kiri bawah: menempel di sisi kiri foto (di atas ranting emas) */
-.hb:nth-child(2) {
-  top: 46%;
-  right: calc(78% - 34px);
+/* Kanan: ujung kiri badge menimpa tepi kanan foto sejauh --ov */
+.hb:nth-child(3),
+.hb:nth-child(4) {
+  right: auto;
+  left: calc(var(--al) + var(--aw) - var(--ov));
+}
+
+/* Tinggi dibuat berselang-seling agar seimbang (zig-zag), bukan sejajar kaku */
+.hb:nth-child(1) {
+  top: 19%;
+}
+
+.hb:nth-child(4) {
+  top: 31%;
   animation-delay: -1.5s;
 }
 
-/* 3. Kanan bawah: tepat di bawah bingkai, tidak menutupi foto sama sekali */
-.hb:nth-child(3) {
-  top: 94%;
-  right: 10%;
+.hb:nth-child(2) {
+  top: 53%;
   animation-delay: -3s;
 }
 
-/* 4. Kanan atas: di atas tirai putih (area foto tanpa objek) */
-.hb:nth-child(4) {
-  top: 7.5%;
-  right: 21%;
+.hb:nth-child(3) {
+  top: 66%;
   animation-delay: -4.5s;
 }
 
-/* Responsif: Tablet & HP (lebar layar maksimal 1000px) — badge di empat sudut foto.
-   Atas: di area tirai/pepohonan (tanpa objek). Bawah: di luar bingkai foto.
-   Jadi pasangan pengantin tidak pernah tertutup. */
-@media (max-width: 1000px) {
+/* Responsif: Desktop sempit (lebar layar 1001px - 1250px) — beri ruang di kanan untuk badge */
+@media (min-width: 1001px) and (max-width: 1250px) {
+  .rings {
+    margin-right: 44px;
+  }
+
   .hb {
-    height: 36px;
-    padding: 0 14px 0 11px;
-    gap: 7px;
+    height: 38px;
     font-size: 12.5px;
+    padding: 0 14px 0 11px;
+  }
+}
+
+/* Responsif: Tablet (lebar layar 701px - 1000px) */
+@media (min-width: 701px) and (max-width: 1000px) {
+  .rings {
+    --al: 19%;
+    --aw: 58%;
+    --ov: 30px;
+    height: 520px;
+    margin-right: 46px;
+    margin-bottom: 20px;
+  }
+
+  .hb {
+    height: 34px;
+    font-size: 11.5px;
+    padding: 0 12px 0 9px;
+    gap: 6px;
   }
 
   .hb svg {
     width: 16px;
     height: 16px;
   }
-
-  /* 1. Kiri atas — Wedding Organizer */
-  .hb:nth-child(1) {
-    top: 2%;
-    left: 0;
-    right: auto;
-  }
-
-  /* 2. Kiri bawah — Foto & Video */
-  .hb:nth-child(2) {
-    top: 91.5%;
-    left: 2%;
-    right: auto;
-  }
-
-  /* 3. Kanan bawah — Master of Ceremony */
-  .hb:nth-child(3) {
-    top: 91.5%;
-    left: auto;
-    right: 2%;
-  }
-
-  /* 4. Kanan atas — Content Creator */
-  .hb:nth-child(4) {
-    top: 2%;
-    left: auto;
-    right: 0;
-  }
 }
 
-/* Responsif: HP (lebar layar maksimal 700px) — foto lebih besar & di tengah, badge satu baris */
+/* Responsif: HP (lebar layar maksimal 700px) — foto 70% lebar, badge ringkas dua baris */
 @media (max-width: 700px) {
   .rings {
+    --al: 15%;
+    --aw: 70%;
+    --ov: 34px;
     max-width: 346px;
-    height: 470px;
-    margin-bottom: 30px;
-  }
-
-  /* Foto dan garis lengkung emas dipusatkan (lebar 82%) */
-  .arch2 {
-    left: 9%;
-    right: auto;
-    width: 82%;
-    height: 90%;
-  }
-
-  .aro {
-    left: calc(9% + 14px);
-    right: auto;
-    top: -12px;
-    width: 82%;
-    height: 90%;
-  }
-
-  .rings .orb {
-    opacity: .35;
+    height: 450px;
+    margin: 0 auto 20px;
   }
 
   .hb {
-    height: 34px;
-    padding: 0 13px 0 10px;
-    gap: 7px;
-    font-size: 12px;
-    line-height: 1;
+    width: 100px;
+    height: auto;
+    min-height: 34px;
+    padding: 6px 9px;
+    gap: 6px;
+    border-radius: 16px;
+    font-size: 11px;
+    line-height: 1.15;
+    white-space: normal;
   }
 
   .hb svg {
-    width: 15px;
-    height: 15px;
+    width: 14px;
+    height: 14px;
   }
 
-  /* Ranting emas dipindah ke sisi tengah foto agar tidak bertabrakan dengan badge */
   .spr.s1 {
-    left: -2%;
-    bottom: 14%;
-    width: 17%;
+    left: -3%;
+    width: 15%;
   }
 
   .spr.s2 {
-    right: -2%;
-    top: 14%;
-    width: 13%;
+    right: -3%;
+    width: 11%;
   }
 }
 
-/* Responsif: HP sempit (lebar layar maksimal 359px) — badge sedikit lebih kecil */
+/* Responsif: HP sempit (lebar layar maksimal 359px) */
 @media (max-width: 359px) {
   .hb {
-    padding: 0 10px 0 8px;
+    width: 92px;
+    padding: 5px 8px;
     gap: 5px;
-    font-size: 11px;
+    font-size: 10.5px;
   }
 
   .hb svg {
@@ -678,3 +732,47 @@
     animation: none;
   }
 }
+
+/* Responsif: Tablet portrait (lebar layar 701px - 860px) — hero tersusun vertikal seperti di HP,
+   foto di tengah dengan badge seimbang di kiri & kanan (tidak menabrak teks judul). */
+@media (min-width: 701px) and (max-width: 860px) {
+  .hero .w {
+    grid-template-columns: minmax(0,1fr);
+    gap: 36px;
+  }
+
+  .hero h1 {
+    font-size: clamp(44px, 8vw, 64px);
+  }
+
+  .rings {
+    --al: 16%;
+    --aw: 68%;
+    --ov: 40px;
+    justify-self: center;
+    width: 100%;
+    max-width: 560px;
+    height: 620px;
+    margin: 0 auto 20px;
+  }
+
+  .hb {
+    height: 38px;
+    font-size: 13px;
+    padding: 0 15px 0 11px;
+    gap: 8px;
+  }
+
+  .hb svg {
+    width: 17px;
+    height: 17px;
+  }
+}
+
+/* Responsif: Tablet landscape (lebar layar 861px - 1000px) — jarak antar kolom diperlebar untuk badge kiri */
+@media (min-width: 861px) and (max-width: 1000px) {
+  .hero .w {
+    gap: 52px;
+  }
+}
+
