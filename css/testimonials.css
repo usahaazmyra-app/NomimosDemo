@@ -1,228 +1,246 @@
 /* ==========================================================
-   testimonials.css — Slider testimoni (isi saat ini contoh).
+   testimonials.css — Testimoni klien (isi saat ini contoh).
+   Desktop: 3 kartu sejajar, kartu aktif menyala bergantian.
+   Tablet & HP: kartu bisa digeser (scroll-snap) + panah + titik.
    ========================================================== */
 
-/* Testimoni */
+/* Testimoni: latar dengan dua lingkaran garis emas (motif logo) */
 .tm {
-  overflow: hidden;
-}
-
-/* Tata letak dua kolom */
-.tmg {
-  display: grid;
-  grid-template-columns: .85fr 1.15fr;
-  gap: 60px;
-  align-items: center;
-}
-
-/* Foto bulat bertumpuk */
-.tmv {
   position: relative;
-  aspect-ratio: 1;
-  max-width: 430px;
-  width: 100%;
-}
-
-.tmv .c1 {
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 80%;
-  height: 80%;
-  border-radius: 50%;
   overflow: hidden;
-  border: 1px solid var(--ink);
 }
 
-.tmv .c1 img {
+.tm::before,
+.tm::after {
+  content: "";
   position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  opacity: 0;
-  transition: opacity 1s;
-}
-
-.tmv .c1 img.on {
-  opacity: 1;
-}
-
-.tmv .c2 {
-  position: absolute;
-  right: 0;
-  bottom: 0;
-  width: 44%;
-  height: 44%;
+  width: 420px;
+  height: 420px;
+  border: 1px solid var(--line);
   border-radius: 50%;
-  overflow: hidden;
+  pointer-events: none;
+}
+
+.tm::before {
+  left: -140px;
+  bottom: -190px;
+}
+
+.tm::after {
+  left: -60px;
+  bottom: -250px;
+}
+
+.tm .w {
+  position: relative;
+  z-index: 1;
+}
+
+/* Baris judul + panah */
+.tm-head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+.tm-head .head {
+  margin-bottom: 0;
+}
+
+.tm-ctrl {
+  display: none;
+  gap: 10px;
+}
+
+.tm-ctrl button {
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
   border: 1px solid var(--ink);
-  box-shadow: 0 0 0 8px var(--bg);
+  background: none;
+  color: var(--ink);
+  font-size: 18px;
+  cursor: pointer;
+  transition: background .2s, border-color .2s, color .2s;
 }
 
-.tmv .c2 img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-/* Label jenis acara */
-.tch {
-  position: absolute;
-  left: 6%;
-  bottom: 6%;
+.tm-ctrl button:hover {
   background: var(--gold);
+  border-color: var(--gold);
   color: #141414;
-  font: 500 13px Jost,sans-serif;
-  padding: 8px 18px;
-  border-radius: 99px;
 }
 
-/* Tumpukan kutipan */
-.tmt {
+/* Jalur kartu: desktop = 3 kolom */
+.tm-track {
+  position: relative;
   display: grid;
+  grid-template-columns: repeat(3, minmax(0,1fr));
+  gap: 22px;
+  margin-top: 44px;
 }
 
-/* Satu kutipan (tampil saat .on) */
-.tq {
-  grid-area: 1/1;
+/* Satu kartu testimoni */
+.tcard {
   margin: 0;
-  opacity: 0;
-  visibility: hidden;
-  transform: translateY(14px);
-  transition: opacity .7s,transform .7s,visibility .7s;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 34px 30px 28px;
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 28px;
+  transition: transform .5s cubic-bezier(.2,.7,.2,1), border-color .4s, box-shadow .4s;
 }
 
-.tq.on {
-  opacity: 1;
-  visibility: visible;
-  transform: none;
+.tcard.on {
+  border-color: var(--gold);
+  transform: translateY(-8px);
+  box-shadow: 0 22px 48px rgba(0,0,0,.22);
 }
 
-.tq blockquote {
-  font: italic 400 clamp(25px,3vw,36px)/1.28 'Cormorant Garamond',serif;
-  margin: 0 0 26px;
-}
-
-.tq blockquote:before {
-  content: "\201C";
-  display: block;
-  font-size: 84px;
-  line-height: .62;
+.tmark {
+  font: italic 400 78px/.55 'Cormorant Garamond', serif;
   color: var(--gold);
-  font-style: normal;
 }
 
-.tq figcaption {
+.tcard blockquote {
+  margin: 0;
+  font: italic 400 clamp(21px, 1.9vw, 25px)/1.38 'Cormorant Garamond', serif;
+}
+
+.tcard figcaption {
   display: flex;
   align-items: center;
-  gap: 16px;
+  gap: 14px;
+  margin-top: auto;
+  padding-top: 18px;
+  border-top: 1px solid var(--line);
 }
 
-.tq small {
-  display: block;
-  color: var(--mute);
-  font-size: 13px;
-}
-
-/* Lingkaran inisial */
+/* Lingkaran inisial (ganti dengan foto klien jika sudah ada izin) */
 .av {
-  width: 52px;
-  height: 52px;
-  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  flex: none;
   display: grid;
   place-items: center;
   border: 1px solid var(--gold);
-  font: 500 18px 'Cormorant Garamond',serif;
-  flex: none;
+  border-radius: 50%;
+  font: 500 17px 'Cormorant Garamond', serif;
 }
 
-/* Tab klien + garis progres */
-.tabs2 {
-  display: grid;
-  grid-template-columns: repeat(3,1fr);
-  gap: 14px;
-  margin-top: 38px;
+.who b {
+  display: block;
+  font-weight: 500;
+  font-size: 15px;
 }
 
-.tabs2 button {
-  text-align: left;
-  background: none;
-  border: 0;
+.who small {
+  display: inline-block;
+  margin-top: 4px;
+  padding: 2px 11px;
+  border: 1px solid var(--line);
+  border-radius: 99px;
+  font-size: 12px;
+  color: var(--mute);
+}
+
+/* Titik penunjuk (tablet & HP) */
+.tm-dots {
+  display: none;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 18px;
+}
+
+.tm-dots button {
+  width: 9px;
+  height: 9px;
   padding: 0;
+  border: 1px solid var(--goldd);
+  border-radius: 50%;
+  background: none;
   cursor: pointer;
-  color: var(--ink);
-  font-family: inherit;
-  opacity: .5;
-  transition: opacity .3s;
 }
 
-.tabs2 button.on,
-.tabs2 button:hover {
-  opacity: 1;
-}
-
-.tabs2 .bar {
-  display: block;
-  height: 2px;
-  background: var(--line);
-  margin-bottom: 10px;
-  overflow: hidden;
-}
-
-.tabs2 .bar i {
-  display: block;
-  height: 100%;
-  width: 0;
+.tm-dots button.on {
   background: var(--gold);
 }
 
-.tabs2 b {
-  display: block;
-  font: 500 14px Jost,sans-serif;
+/* Baris bawah: catatan contoh + tombol Instagram */
+.tm-foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-top: 42px;
 }
 
-.tabs2 small {
-  font-size: 12.5px;
-  color: var(--mute);
-}
-
-/* Catatan "contoh" (hapus setelah diisi asli) */
 .tmnote {
+  margin: 0;
+  max-width: 460px;
   font-size: 12.5px;
   color: var(--mute);
-  margin-top: 34px;
 }
 
-/* Responsif: HP (lebar layar maksimal 700px) */
-@media (max-width: 700px) {
-  .tmg {
-    grid-template-columns: 1fr;
-    gap: 34px;
+/* Responsif: Tablet & HP (lebar layar maksimal 1000px) — kartu bisa digeser */
+@media (max-width: 1000px) {
+  .tm-ctrl,
+  .tm-dots {
+    display: flex;
   }
 
-  .tmv {
-    margin: 0 auto;
-    max-width: 320px;
+  .tm-track {
+    display: flex;
+    gap: 16px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    padding: 12px 4px 18px;
+    margin-inline: -4px;
+    scrollbar-width: none;
+  }
+
+  .tm-track::-webkit-scrollbar {
+    display: none;
+  }
+
+  .tcard {
+    flex: 0 0 min(400px, 47%);
+    scroll-snap-align: center;
+  }
+
+  .tcard.on {
+    transform: none;
+    box-shadow: none;
+  }
+}
+
+/* Responsif: HP (lebar layar maksimal 700px) — satu kartu per layar */
+@media (max-width: 700px) {
+  .tm-head {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .tcard {
+    flex: 0 0 86%;
+    padding: 28px 24px 24px;
+  }
+
+  .tm-foot {
+    margin-top: 30px;
   }
 }
 
 /* Responsif: Pengguna yang meminta animasi dikurangi (aksesibilitas) */
 @media (prefers-reduced-motion: reduce) {
-  .tq,
-  .tmv .c1 img {
+  .tcard {
     transition: none;
+  }
+
+  .tcard.on {
     transform: none;
-  }
-}
-
-/* Responsif: Tablet (lebar layar 701px - 1000px) — dua kolom diperkecil */
-@media (min-width: 701px) and (max-width: 1000px) {
-  .tmg {
-    gap: 32px;
-  }
-
-  .tmv {
-    max-width: 320px;
   }
 }

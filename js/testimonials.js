@@ -1,63 +1,91 @@
 /**
- * testimonials.js — Slider testimoni
+ * testimonials.js — Kartu testimoni
  * --------------------------------------------------------------
- * Tiga tab dengan garis progres emas. Pindah otomatis tiap 7 detik,
- * berhenti saat kursor/fokus di dalamnya, bisa digeser di layar sentuh.
+ * Desktop : 3 kartu terlihat sekaligus; kartu "aktif" (bingkai emas)
+ *           berganti otomatis tiap 5,5 detik, berhenti saat disentuh kursor.
+ * Tablet/HP: kartu digeser (swipe) atau lewat panah/titik; kartu di tengah
+ *           layar otomatis menjadi aktif.
+ * Isi testimoni ada di index.html (section id="testimoni").
  */
 (() => {
   const { $, $$, reduceMotion } = NMS;
-  const quotes = $$('.tq');
-  const photos = $$('.tmv .c1 img');
-  const tabs = $$('.tabs2 button');
-  const label = $('#tch');
-  const area = $('.tmg');
-  if (!quotes.length) return;
+  const track = $('#tmTrack');
+  if (!track) return;
 
-  const DURATION = 7000;                            // ms per testimoni
-  let index = 0, progress = 0, hovering = false, last = performance.now();
-  const bar = k => $('i', tabs[k]);
+  const cards = $$('.tcard', track);
+  const dotsBox = $('#tmDots');
+  const stacked = matchMedia('(max-width: 1000px)');   // tablet & HP = carousel geser
+  const INTERVAL = 5500;
+  let index = stacked.matches ? 0 : 1, timer;     // desktop: kartu tengah menyala; carousel: mulai dari kartu pertama
 
-  const go = k => {
-    index = (k + quotes.length) % quotes.length;
-    progress = 0;
-    quotes.forEach((q, j) => q.classList.toggle('on', j === index));
-    photos.forEach((p, j) => p.classList.toggle('on', j === index));
-    tabs.forEach((tab, j) => {
-      tab.classList.toggle('on', j === index);
-      tab.setAttribute('aria-selected', String(j === index));
-      bar(j).style.width = (reduceMotion && j === index) ? '100%' : '0';
-    });
-    label.textContent = tabs[index].dataset.l;
-  };
-  tabs.forEach((tab, k) => tab.addEventListener('click', () => go(k)));
-
-  // Jeda saat kursor / fokus di dalam area testimoni
-  area.addEventListener('mouseenter', () => { hovering = true; });
-  area.addEventListener('mouseleave', () => { hovering = false; });
-  area.addEventListener('focusin', () => { hovering = true; });
-  area.addEventListener('focusout', () => { hovering = false; });
-
-  // Geser kiri/kanan di layar sentuh
-  let startX = null;
-  area.addEventListener('touchstart', e => { startX = e.touches[0].clientX; }, { passive: true });
-  area.addEventListener('touchend', e => {
-    if (startX === null) return;
-    const dx = e.changedTouches[0].clientX - startX;
-    if (Math.abs(dx) > 45) go(index + (dx < 0 ? 1 : -1));
-    startX = null;
+  /* Titik penunjuk ------------------------------------------------ */
+  const dots = cards.map((_, k) => {
+    const dot = document.createElement('button');
+    dot.type = 'button';
+    dot.setAttribute('aria-label', 'Testimoni ' + (k + 1));
+    dot.addEventListener('click', () => go(k, true));
+    dotsBox.appendChild(dot);
+    return dot;
   });
 
-  // Isi garis progres tiap frame; pindah saat penuh
-  const frame = time => {
-    const dt = Math.min(time - last, 50);
-    last = time;
-    if (!hovering && !reduceMotion && !document.hidden) {
-      progress += dt / DURATION;
-      bar(index).style.width = Math.min(progress, 1) * 100 + '%';
-      if (progress >= 1) go(index + 1);
-    }
-    requestAnimationFrame(frame);
+  /** Tandai kartu aktif */
+  const mark = k => {
+    index = k;
+    cards.forEach((card, j) => card.classList.toggle('on', j === k));
+    dots.forEach((dot, j) => dot.classList.toggle('on', j === k));
   };
-  go(0);
-  requestAnimationFrame(frame);
+
+  /** Pindah ke kartu k (di carousel: geser agar kartu berada di tengah) */
+  const go = (k, byUser) => {
+    k = (k + cards.length) % cards.length;
+    mark(k);
+    if (stacked.matches) {
+      const card = cards[k];
+      track.scrollTo({
+        left: card.offsetLeft - (track.clientWidth - card.offsetWidth) / 2,
+        behavior: reduceMotion ? 'auto' : 'smooth'
+      });
+    }
+    if (byUser) restart();
+  };
+
+  /* Pergantian otomatis (hanya desktop) ------------------------------ */
+  const restart = () => {
+    clearInterval(timer);
+    if (!reduceMotion && !stacked.matches) timer = setInterval(() => mark((index + 1) % cards.length), INTERVAL);
+  };
+
+  /* Interaksi ------------------------------------------------------ */
+  $('#tmPrev').addEventListener('click', () => go(index - 1, true));
+  $('#tmNext').addEventListener('click', () => go(index + 1, true));
+
+  cards.forEach((card, k) => {
+    card.addEventListener('mouseenter', () => { if (!stacked.matches) { clearInterval(timer); mark(k); } });
+    card.addEventListener('mouseleave', restart);
+  });
+
+  // Saat digeser manual: kartu terdekat dengan tengah layar menjadi aktif
+  let ticking = false;
+  track.addEventListener('scroll', () => {
+    if (!stacked.matches || ticking) return;
+    ticking = true;
+    requestAnimationFrame(() => {
+      const center = track.scrollLeft + track.clientWidth / 2;
+      let best = 0, gap = Infinity;
+      cards.forEach((card, k) => {
+        const d = Math.abs(card.offsetLeft + card.offsetWidth / 2 - center);
+        if (d < gap) { gap = d; best = k; }
+      });
+      // Di ujung kiri/kanan jalur, kartu pertama/terakhir menjadi aktif walau tidak bisa sampai ke tengah
+      if (track.scrollLeft <= 4) best = 0;
+      else if (track.scrollLeft >= track.scrollWidth - track.clientWidth - 4) best = cards.length - 1;
+      if (best !== index) mark(best);
+      ticking = false;
+    });
+  }, { passive: true });
+
+  stacked.addEventListener('change', restart);
+
+  mark(index);
+  restart();
 })();

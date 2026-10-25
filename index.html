@@ -400,35 +400,33 @@
   <!-- TESTIMONI — SAAT INI CONTOH. Ganti teks, nama, dan foto dengan testimoni asli (js/testimonials.js). -->
   <section class="tm" id="testimoni">
     <div class="w">
-      <div class="head">
-        <h2>Kata mereka tentang Nomimos</h2>
-        <p>Cerita dari pasangan dan keluarga yang sudah kami dampingi.</p>
+      <div class="tm-head">
+        <div class="head"><h2>Kata mereka tentang Nomimos</h2><p>Cerita dari pasangan dan keluarga yang sudah kami dampingi.</p></div>
+        <!-- Panah navigasi: tampil di tablet & HP saja (di desktop ketiga kartu terlihat sekaligus) -->
+        <div class="tm-ctrl"><button id="tmPrev" type="button" aria-label="Testimoni sebelumnya">&larr;</button><button id="tmNext" type="button" aria-label="Testimoni berikutnya">&rarr;</button></div>
       </div>
-      <div class="tmg" role="region" aria-roledescription="carousel" aria-label="Testimoni klien">
-        <div class="tmv">
-          <div class="c1"><img src="assets/images/gallery/dekorasi-bunga.jpg" alt="Dekorasi bunga" loading="lazy" class="on"><img src="assets/images/gallery/menu-meja.jpg" alt="Detail acara" loading="lazy"><img src="assets/images/gallery/resepsi.jpg" alt="Suasana resepsi" loading="lazy"></div>
-          <div class="c2"><img src="assets/images/team/tim-veranda.jpg" alt="Tim Nomimos Organizer" loading="lazy" style="object-position:30% 60%"></div>
-          <span class="tch" id="tch">Wedding</span>
-        </div>
-        <div class="tmr">
-          <div class="tmt">
-            <figure class="tq on">
-              <blockquote>Dari meeting pertama sampai tamu terakhir pulang, semuanya terkoordinasi. Kami tinggal menikmati hari itu.</blockquote>
-              <figcaption><span class="av">K1</span><span><b>Nama Klien 1</b><small>Wedding</small></span></figcaption>
-            </figure>
-            <figure class="tq">
-              <blockquote>Buku panduan acaranya rapi sekali. Semua vendor tahu tugasnya, dan keluarga kami tidak ikut repot.</blockquote>
-              <figcaption><span class="av">K2</span><span><b>Nama Klien 2</b><small>Engagement</small></span></figcaption>
-            </figure>
-            <figure class="tq">
-              <blockquote>Konsepnya terasa personal dan sesuai cerita kami. Crew-nya ramah dan sigap di lokasi.</blockquote>
-              <figcaption><span class="av">K3</span><span><b>Nama Klien 3</b><small>Acara keluarga</small></span></figcaption>
-            </figure>
-          </div>
-          <div class="tabs2" role="tablist" aria-label="Pilih testimoni"><button type="button" role="tab" aria-selected="true" data-l="Wedding" class="on"><span class="bar"><i></i></span><b>Nama Klien 1</b><small>Wedding</small></button><button type="button" role="tab" aria-selected="false" data-l="Engagement"><span class="bar"><i></i></span><b>Nama Klien 2</b><small>Engagement</small></button><button type="button" role="tab" aria-selected="false" data-l="Acara keluarga"><span class="bar"><i></i></span><b>Nama Klien 3</b><small>Acara keluarga</small></button></div>
-        </div>
+      <div class="tm-track" id="tmTrack" role="region" aria-roledescription="carousel" aria-label="Testimoni klien">
+      <figure class="tcard">
+        <span class="tmark" aria-hidden="true">&ldquo;</span>
+        <blockquote>Dari meeting pertama sampai tamu terakhir pulang, semuanya terkoordinasi. Kami tinggal menikmati hari itu.</blockquote>
+        <figcaption><span class="av">K1</span><span class="who"><b>Nama Klien 1</b><small>Wedding</small></span></figcaption>
+      </figure>
+      <figure class="tcard on">
+        <span class="tmark" aria-hidden="true">&ldquo;</span>
+        <blockquote>Buku panduan acaranya rapi sekali. Semua vendor tahu tugasnya, dan keluarga kami tidak ikut repot.</blockquote>
+        <figcaption><span class="av">K2</span><span class="who"><b>Nama Klien 2</b><small>Engagement</small></span></figcaption>
+      </figure>
+      <figure class="tcard">
+        <span class="tmark" aria-hidden="true">&ldquo;</span>
+        <blockquote>Konsepnya terasa personal dan sesuai cerita kami. Crew-nya ramah dan sigap di lokasi.</blockquote>
+        <figcaption><span class="av">K3</span><span class="who"><b>Nama Klien 3</b><small>Acara keluarga</small></span></figcaption>
+      </figure>
       </div>
-      <p class="tmnote">Teks dan nama di atas hanya contoh. Ganti dengan testimoni asli klien Nomimos.</p>
+      <div class="tm-dots" id="tmDots"></div>
+      <div class="tm-foot">
+        <p class="tmnote">Teks dan nama di atas hanya contoh. Ganti dengan testimoni asli klien Nomimos.</p>
+        <a class="btn" href="https://www.instagram.com/nomimos.organizer/" target="_blank" rel="noopener">Lihat cerita klien di Instagram</a>
+      </div>
     </div>
   </section>
   <!-- FAQ — pertanyaan umum (elemen <details>, tanpa JavaScript) -->
