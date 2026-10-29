@@ -3,8 +3,7 @@
  * --------------------------------------------------------------
  * 1. Memutar/menjeda video latar otomatis sesuai posisi di layar.
  * 2. Lightbox video (layar penuh + suara) untuk elemen [data-video].
- * 3. Lightbox foto untuk galeri dan kartu tim.
- * 4. Video cerita Rino & Jojo diputar berulang pada potongan terbaik.
+ * 3. Lightbox foto untuk kartu tim.
  * Menyediakan: NMS.observeVideo(video), NMS.openVideo(src).
  */
 (() => {
@@ -56,7 +55,7 @@
   const bigImage = $('#lbim');
   const closeImage = () => { imageBox.hidden = true; };
 
-  $$('.gal figure, .team .card').forEach(item => {
+  $$('.team .card').forEach(item => {
     item.tabIndex = 0;                         // bisa difokus dengan keyboard
     item.setAttribute('role', 'button');
     const show = () => {
@@ -77,16 +76,4 @@
   document.addEventListener('keydown', e => {
     if (e.key === 'Escape') { closeVideo(); closeImage(); }
   });
-
-  /* 4. Video cerita: ulangi hanya detik 35-48 (adegan terbaik) ----- */
-  const story = $('.story .big video');
-  const SEGMENT = { start: 35, end: 48 };
-  if (story) {
-    story.addEventListener('loadedmetadata', () => { story.currentTime = SEGMENT.start; });
-    story.addEventListener('timeupdate', () => {
-      if (story.currentTime > SEGMENT.end || story.currentTime < SEGMENT.start - 1) {
-        story.currentTime = SEGMENT.start;
-      }
-    });
-  }
 })();

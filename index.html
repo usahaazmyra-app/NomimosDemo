@@ -39,6 +39,7 @@
   <link rel="stylesheet" href="css/services.css">
   <link rel="stylesheet" href="css/packages.css">
   <link rel="stylesheet" href="css/media.css">
+  <link rel="stylesheet" href="css/stories.css">
   <link rel="stylesheet" href="css/team.css">
   <link rel="stylesheet" href="css/process.css">
   <link rel="stylesheet" href="css/testimonials.css">
@@ -302,40 +303,48 @@
   </section>
   <!-- LIGHTBOX VIDEO (diisi lewat JavaScript) -->
   <div class="lb" id="lb" hidden role="dialog" aria-label="Pemutar video"><button class="x" aria-label="Tutup">×</button><video id="lbv" controls="" playsinline="" loop=""></video></div>
-  <!-- CERITA PORTOFOLIO — Rino & Jojo (video + galeri foto yang bisa diperbesar) -->
-  <section class="story" id="cerita">
+  <!-- KISAH PASANGAN — kumpulan video wedding klien (js/stories.js).
+     Setiap pasangan = satu <li class="love-item"> dengan data-clip (file video), data-poster, data-names.
+     Tambah pasangan: duplikat satu <li>, ganti 3 atribut itu dan teksnya, lalu ubah "/ 07" di .love-count. -->
+  <section class="love" id="cerita">
     <div class="w">
-      <div class="head intro">
-        <h2>Cerita Rino & Jojo</h2>
-        <p>Terpisah jarak Jepang-Indonesia, satu visi untuk hari pernikahan mereka.</p>
+      <div class="love-head">
+        <div class="head">
+          <h2>Kisah mereka, dirayakan bersama Nomimos</h2>
+          <p>Tujuh pasangan telah mempercayakan hari bahagianya kepada kami. Pilih satu untuk melihat cuplikan hari istimewanya.</p>
+        </div>
+        <div class="love-count" aria-live="polite"><b id="loveNum">01</b><span>/ 07</span></div>
       </div>
-      <div class="big" data-video="assets/video/rino-jojo.mp4"><video poster="assets/images/gallery/pasangan-dekorasi.jpg" loop="" muted="" playsinline="" preload="metadata" aria-label="Video pernikahan Rino dan Jojo" src="assets/video/rino-jojo.mp4"></video></div>
-      <div class="sd">
-        <ul class="vals" style="margin-top:0">
-          <li><b>Love Beyond Distance</b><span>Hubungan yang tetap kuat meski terpisah dua negara. Hari pernikahan menjadi perayaan perjalanan cinta mereka.</span></li>
-          <li><b>Intimate wedding, sentuhan Jepang</b><span>Konsep intim yang terinspirasi tradisi Jepang: hangat, personal, dan berbeda dari biasanya.</span></li>
-          <li><b>Karakter favorit menemani tamu</b><span>Karakter kesukaan mereka ikut melengkapi dekorasi, sehingga suasana terasa lebih personal.</span></li>
-        </ul>
-        <div class="chips"><span>Intimate wedding</span><span>100 tamu</span><span>Jepang × Indonesia</span></div>
-        <div class="cta" style="margin-top:26px"><button class="btn g" id="rj" type="button" data-video="assets/video/rino-jojo.mp4">Tonton videonya</button><a class="btn" href="https://www.instagram.com/nomimos.organizer/" target="_blank" rel="noopener">Cerita lengkap di Instagram</a></div>
-      </div>
-      <div class="gal">
-        <figure>
-          <img src="assets/images/gallery/menu-meja.jpg" alt="Menu dan detail meja" loading="lazy" style="object-position:50% 55%">
-          <figcaption>Menu dan detail meja</figcaption>
-        </figure>
-        <figure>
-          <img src="assets/images/gallery/dekorasi-bunga.jpg" alt="Dekorasi bunga" loading="lazy" style="object-position:50% 50%">
-          <figcaption>Dekorasi bunga</figcaption>
-        </figure>
-        <figure>
-          <img src="assets/images/gallery/pengantin-masuk.jpg" alt="Pengantin masuk ruangan" loading="lazy" style="object-position:50% 55%">
-          <figcaption>Pengantin masuk ruangan</figcaption>
-        </figure>
-        <figure>
-          <img src="assets/images/gallery/momen-cincin.jpg" alt="Momen cincin" loading="lazy" style="object-position:50% 35%">
-          <figcaption>Momen cincin</figcaption>
-        </figure>
+      <div class="love-stage">
+        <!-- Bingkai ponsel: video utama (satu video dimuat pada satu waktu) -->
+        <div class="love-phone">
+          <span class="love-ring" aria-hidden="true"></span>
+          <div class="love-screen" id="lovePhone" role="button" tabindex="0" aria-label="Tonton video Firli dan Dedy dengan suara" data-video="assets/video/pasangan/firli-dedy.mp4">
+            <video id="loveVideo" poster="assets/images/pasangan/firli-dedy.jpg" muted loop playsinline preload="none" aria-hidden="true"></video>
+            <span class="love-badge"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 21s-7.5-4.6-9.6-9.2C.9 8.3 3 5 6.3 5c2 0 3.3 1 3.9 2.1h3.6C14.4 6 15.7 5 17.7 5 21 5 23.1 8.3 21.6 11.8 19.5 16.4 12 21 12 21z"/></svg>Wedding story</span>
+            <span class="love-play"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>Tonton dengan suara</span>
+            <i class="love-progress"><b></b></i>
+          </div>
+        </div>
+        <div class="love-info">
+          <p class="love-kicker">Wedding story</p>
+          <h3 class="love-names" id="loveNames">Firli &amp; Dedy</h3>
+          <p class="love-desc">Cuplikan hari bahagia yang kami dampingi dari konsep sampai hari H.</p>
+          <div class="love-actions">
+            <button class="btn g" id="loveWatch" type="button" data-video="assets/video/pasangan/firli-dedy.mp4">Tonton dengan suara</button>
+            <div class="love-nav"><button id="lovePrev" type="button" aria-label="Pasangan sebelumnya">&larr;</button><button id="loveNext" type="button" aria-label="Pasangan berikutnya">&rarr;</button></div>
+          </div>
+          <ul class="love-list" id="loveList" aria-label="Daftar pasangan">
+            <li><button type="button" class="love-item on" data-clip="assets/video/pasangan/firli-dedy.mp4" data-poster="assets/images/pasangan/firli-dedy.jpg" data-names="Firli &amp; Dedy" aria-current="true"><img src="assets/images/pasangan/firli-dedy.jpg" alt="" loading="lazy"><span><b>Firli &amp; Dedy</b><small>01</small></span></button></li>
+            <li><button type="button" class="love-item" data-clip="assets/video/pasangan/han-vira.mp4" data-poster="assets/images/pasangan/han-vira.jpg" data-names="Han &amp; Vira" aria-current="false"><img src="assets/images/pasangan/han-vira.jpg" alt="" loading="lazy"><span><b>Han &amp; Vira</b><small>02</small></span></button></li>
+            <li><button type="button" class="love-item" data-clip="assets/video/pasangan/windi-akmal.mp4" data-poster="assets/images/pasangan/windi-akmal.jpg" data-names="Windi &amp; Akmal" aria-current="false"><img src="assets/images/pasangan/windi-akmal.jpg" alt="" loading="lazy"><span><b>Windi &amp; Akmal</b><small>03</small></span></button></li>
+            <li><button type="button" class="love-item" data-clip="assets/video/pasangan/hafid-alishka.mp4" data-poster="assets/images/pasangan/hafid-alishka.jpg" data-names="Hafid &amp; Alishka" aria-current="false"><img src="assets/images/pasangan/hafid-alishka.jpg" alt="" loading="lazy"><span><b>Hafid &amp; Alishka</b><small>04</small></span></button></li>
+            <li><button type="button" class="love-item" data-clip="assets/video/pasangan/zahra-krisna.mp4" data-poster="assets/images/pasangan/zahra-krisna.jpg" data-names="Zahra &amp; Krisna" aria-current="false"><img src="assets/images/pasangan/zahra-krisna.jpg" alt="" loading="lazy"><span><b>Zahra &amp; Krisna</b><small>05</small></span></button></li>
+            <li><button type="button" class="love-item" data-clip="assets/video/pasangan/mirsa-noman.mp4" data-poster="assets/images/pasangan/mirsa-noman.jpg" data-names="Mirsa &amp; Noman" aria-current="false"><img src="assets/images/pasangan/mirsa-noman.jpg" alt="" loading="lazy"><span><b>Mirsa &amp; Noman</b><small>06</small></span></button></li>
+            <li><button type="button" class="love-item" data-clip="assets/video/pasangan/adirna-alfian.mp4" data-poster="assets/images/pasangan/adirna-alfian.jpg" data-names="Adirna &amp; Alfian" aria-current="false"><img src="assets/images/pasangan/adirna-alfian.jpg" alt="" loading="lazy"><span><b>Adirna &amp; Alfian</b><small>07</small></span></button></li>
+          </ul>
+          <a class="love-ig" href="https://www.instagram.com/nomimos.organizer/" target="_blank" rel="noopener">Lihat lebih banyak cerita di Instagram &rarr;</a>
+        </div>
       </div>
     </div>
   </section>
@@ -491,6 +500,7 @@
   <script src="js/services.js" defer></script>
   <script src="js/packages.js" defer></script>
   <script src="js/reels.js" defer></script>
+  <script src="js/stories.js" defer></script>
   <script src="js/testimonials.js" defer></script>
   <script src="js/contact.js" defer></script>
   <script src="js/music.js" defer></script>

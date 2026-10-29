@@ -13,7 +13,8 @@ nomimos-organizer/
 │  ├─ base.css           Variabel warna/tema, reset, tipografi, tombol  <- ubah warna di sini
 │  ├─ animations.css     Semua @keyframes
 │  ├─ nav.css  hero.css  marquee-stats.css  about.css  services.css  packages.css
-│  ├─ media.css          Carousel video, lightbox, cerita Rino & Jojo, galeri
+│  ├─ media.css          Carousel video dan lightbox
+│  ├─ stories.css        Kisah pasangan (kumpulan video wedding klien)
 │  ├─ team.css  process.css  testimonials.css  faq-contact.css  footer.css
 │  ├─ widgets.css        Tombol WA, musik, kursor, progres scroll
 │  └─ utilities.css      Efek muncul saat scroll (dimuat terakhir)
@@ -21,7 +22,7 @@ nomimos-organizer/
 │  ├─ config.js          Nomor WA, Instagram, file musik  <- ubah di sini
 │  ├─ media.js           Video autoplay, lightbox video & foto
 │  ├─ nav.js  hero.js  reveal.js  services.js  packages.js
-│  ├─ reels.js  testimonials.js  contact.js  music.js  cursor.js
+│  ├─ reels.js  stories.js  testimonials.js  contact.js  music.js  cursor.js
 ├─ assets/
 │  ├─ images/ (hero, team, packages, gallery, services, logo)
 │  ├─ video/
@@ -52,6 +53,7 @@ python3 -m http.server 8000      # lalu buka http://localhost:8000
 | Testimoni | `index.html`, section `.tm` (**saat ini teks contoh**) |
 | Musik latar | ganti file di `assets/audio/` lalu perbarui `music` di `js/config.js` |
 | Tambah video carousel | duplikat satu `<button class="rl">` di section `id="reels"` |
+| Tambah pasangan di "Kisah pasangan" | taruh video di `assets/video/pasangan/` dan gambar sampul di `assets/images/pasangan/`; duplikat satu `<li class="love-item">` di section `id="cerita"` (ubah `data-clip`, `data-poster`, `data-names`) dan ubah angka `/ 07` |
 
 Menambah animasi muncul-saat-scroll ke elemen baru: tambahkan selector-nya di konstanta `REVEAL` pada `js/reveal.js`.
 

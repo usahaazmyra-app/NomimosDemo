@@ -11,7 +11,7 @@
   /* Muncul saat di-scroll ------------------------------------------- */
   // Daftar elemen yang ikut animasi. Tambahkan selector baru di sini.
   const REVEAL = '.head, .abt, .about .w > div:last-child, .pk, .steps li, ' +
-                 '.faq details, .card, .gal figure, .sd, .story .big, .ng > *, .lv';
+                 '.faq details, .card, .ng > *, .lv';
 
   const reveal = new IntersectionObserver(entries => {
     entries.forEach(entry => {

@@ -1,0 +1,417 @@
+/* ==========================================================
+   stories.css — Kisah pasangan (kumpulan video wedding klien).
+   Bagian bertema gelap (sinematik) agar video menonjol.
+   Desktop: ponsel di kiri, info + daftar pasangan di kanan.
+   Tablet/HP: ponsel di atas, daftar pasangan bisa digeser.
+   ========================================================== */
+
+/* Latar gelap tetap (tidak mengikuti tema terang/gelap) + cahaya emas lembut */
+.love {
+  position: relative;
+  overflow: hidden;
+  background: #121315;
+  color: #f1eee8;
+}
+
+.love::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(48% 55% at 24% 58%, rgba(201,164,92,.17), transparent 72%);
+  pointer-events: none;
+}
+
+/* Dua lingkaran garis emas (motif logo) di belakang ponsel */
+.love::after {
+  content: "";
+  position: absolute;
+  left: 3%;
+  top: 22%;
+  width: 520px;
+  height: 520px;
+  border: 1px solid rgba(201,164,92,.28);
+  border-radius: 50%;
+  box-shadow: 120px 70px 0 -1px rgba(201,164,92,.16);
+  pointer-events: none;
+}
+
+.love .w {
+  position: relative;
+  z-index: 1;
+}
+
+.love .head p {
+  color: rgba(241,238,232,.72);
+}
+
+/* Judul + penghitung "01 / 07" */
+.love-head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+.love-head .head {
+  margin-bottom: 0;
+}
+
+.love-count {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  font-family: 'Cormorant Garamond', serif;
+  color: rgba(241,238,232,.6);
+}
+
+.love-count b {
+  font-size: clamp(52px, 6vw, 84px);
+  font-weight: 500;
+  line-height: 1;
+  color: var(--gold);
+}
+
+.love-count span {
+  font-size: 22px;
+}
+
+/* Panggung: ponsel + panel info */
+.love-stage {
+  display: grid;
+  grid-template-columns: auto minmax(0,1fr);
+  gap: 72px;
+  align-items: center;
+  margin-top: 48px;
+}
+
+/* Bingkai ponsel dengan cahaya emas yang berputar di tepinya */
+.love-phone {
+  position: relative;
+  width: 340px;
+  aspect-ratio: 9 / 16;
+  padding: 3px;
+  border-radius: 36px;
+  box-shadow: 0 30px 70px rgba(0,0,0,.55);
+}
+
+.love-ring {
+  position: absolute;
+  inset: 0;
+  border-radius: 36px;
+  overflow: hidden;
+  background: rgba(201,164,92,.35);
+}
+
+.love-ring::before {
+  content: "";
+  position: absolute;
+  inset: -60%;
+  background: conic-gradient(from 0deg, transparent 0 55%, #e6c987 78%, transparent 100%);
+  animation: spin 6s linear infinite;
+}
+
+.love-screen {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  border-radius: 33px;
+  overflow: hidden;
+  background: #000;
+  cursor: pointer;
+}
+
+.love-screen video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform .8s;
+}
+
+.love-screen:hover video {
+  transform: scale(1.04);
+}
+
+.love-screen:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 4px;
+}
+
+/* Label di atas video + tombol putar + garis progres */
+.love-badge,
+.love-play {
+  position: absolute;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 7px 14px 7px 11px;
+  border-radius: 99px;
+  background: rgba(18,19,21,.58);
+  border: 1px solid rgba(255,255,255,.26);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  color: #f4f1ea;
+  font-size: 12.5px;
+  font-weight: 500;
+}
+
+.love-badge {
+  left: 16px;
+  top: 18px;
+}
+
+.love-badge svg {
+  width: 13px;
+  height: 13px;
+  color: var(--gold);
+}
+
+.love-play {
+  left: 50%;
+  bottom: 26px;
+  transform: translateX(-50%);
+  white-space: nowrap;
+  transition: background .25s, border-color .25s;
+}
+
+.love-play svg {
+  width: 15px;
+  height: 15px;
+  color: var(--gold);
+}
+
+.love-screen:hover .love-play,
+.love-screen:focus-visible .love-play {
+  background: rgba(18,19,21,.82);
+  border-color: var(--gold);
+}
+
+.love-progress {
+  position: absolute;
+  left: 18px;
+  right: 18px;
+  bottom: 12px;
+  height: 3px;
+  border-radius: 2px;
+  background: rgba(255,255,255,.28);
+  overflow: hidden;
+}
+
+.love-progress b {
+  display: block;
+  width: 0;
+  height: 100%;
+  background: var(--gold);
+}
+
+/* Panel info */
+.love-kicker {
+  margin: 0;
+  font: italic 400 22px 'Cormorant Garamond', serif;
+  color: var(--gold);
+}
+
+.love-names {
+  margin: 6px 0 0;
+  font-size: clamp(42px, 5.2vw, 76px);
+  line-height: 1.02;
+  transition: opacity .25s, transform .25s;
+}
+
+.love.swap .love-names {
+  opacity: 0;
+  transform: translateY(10px);
+}
+
+.love-desc {
+  margin: 14px 0 0;
+  max-width: 460px;
+  color: rgba(241,238,232,.72);
+}
+
+.love-actions {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-top: 26px;
+}
+
+.love .btn:not(.g) {
+  color: #f1eee8;
+  border-color: rgba(241,238,232,.5);
+}
+
+.love-nav {
+  display: flex;
+  gap: 8px;
+}
+
+.love-nav button {
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  border: 1px solid rgba(241,238,232,.45);
+  background: none;
+  color: #f1eee8;
+  font-size: 18px;
+  cursor: pointer;
+  transition: background .2s, border-color .2s, color .2s;
+}
+
+.love-nav button:hover {
+  background: var(--gold);
+  border-color: var(--gold);
+  color: #141414;
+}
+
+/* Daftar 7 pasangan (2 kolom) */
+.love-list {
+  list-style: none;
+  padding: 0;
+  margin: 32px 0 20px;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0,1fr));
+  gap: 10px;
+}
+
+.love-item {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 14px 8px 8px;
+  text-align: left;
+  color: inherit;
+  font-family: inherit;
+  background: rgba(255,255,255,.04);
+  border: 1px solid rgba(241,238,232,.14);
+  border-radius: 18px;
+  cursor: pointer;
+  transition: background .25s, border-color .25s, transform .25s;
+}
+
+.love-item:hover {
+  transform: translateY(-2px);
+  border-color: rgba(201,164,92,.6);
+}
+
+.love-item.on {
+  background: rgba(201,164,92,.13);
+  border-color: var(--gold);
+}
+
+.love-item img {
+  width: 46px;
+  height: 60px;
+  flex: none;
+  object-fit: cover;
+  border-radius: 23px 23px 9px 9px;
+}
+
+.love-item b {
+  display: block;
+  font: 500 15px Jost, sans-serif;
+}
+
+.love-item small {
+  color: rgba(241,238,232,.55);
+  font-size: 12px;
+}
+
+.love-ig {
+  color: var(--gold);
+  text-decoration: none;
+  font-size: 14.5px;
+}
+
+.love-ig:hover {
+  text-decoration: underline;
+}
+
+/* Responsif: Tablet & HP (lebar layar maksimal 860px) — susunan vertikal */
+@media (max-width: 860px) {
+  .love-stage {
+    grid-template-columns: minmax(0,1fr);
+    gap: 36px;
+    justify-items: center;
+  }
+
+  .love-phone {
+    width: min(320px, 78vw);
+  }
+
+  .love-info {
+    width: 100%;
+    max-width: 640px;
+    text-align: center;
+  }
+
+  .love-desc {
+    margin-inline: auto;
+  }
+
+  .love-actions {
+    justify-content: center;
+  }
+
+  /* Daftar pasangan menjadi barisan yang bisa digeser */
+  .love-list {
+    display: flex;
+    overflow-x: auto;
+    gap: 10px;
+    padding: 4px 2px 10px;
+    scroll-snap-type: x proximity;
+    scrollbar-width: none;
+  }
+
+  .love-list::-webkit-scrollbar {
+    display: none;
+  }
+
+  .love-list li {
+    flex: 0 0 auto;
+    scroll-snap-align: center;
+  }
+
+  .love-item {
+    width: 176px;
+  }
+
+  .love::after {
+    left: -20%;
+    top: 16%;
+  }
+}
+
+/* Responsif: HP (lebar layar maksimal 700px) */
+@media (max-width: 700px) {
+  .love-head {
+    align-items: flex-start;
+  }
+
+  .love-count b {
+    font-size: 48px;
+  }
+
+  .love-stage {
+    margin-top: 34px;
+  }
+
+  .love-names {
+    font-size: clamp(38px, 11vw, 52px);
+  }
+}
+
+/* Responsif: Pengguna yang meminta animasi dikurangi (aksesibilitas) */
+@media (prefers-reduced-motion: reduce) {
+  .love-ring::before {
+    animation: none;
+  }
+
+  .love-screen video,
+  .love-names,
+  .love-item {
+    transition: none;
+  }
+}
