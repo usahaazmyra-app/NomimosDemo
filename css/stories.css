@@ -40,11 +40,7 @@
   z-index: 1;
 }
 
-.love .head p {
-  color: rgba(241,238,232,.72);
-}
-
-/* Judul + penghitung "01 / 07" */
+/* Judul section */
 .love-head {
   display: flex;
   align-items: flex-end;
@@ -54,25 +50,6 @@
 
 .love-head .head {
   margin-bottom: 0;
-}
-
-.love-count {
-  display: flex;
-  align-items: baseline;
-  gap: 8px;
-  font-family: 'Cormorant Garamond', serif;
-  color: rgba(241,238,232,.6);
-}
-
-.love-count b {
-  font-size: clamp(52px, 6vw, 84px);
-  font-weight: 500;
-  line-height: 1;
-  color: var(--gold);
-}
-
-.love-count span {
-  font-size: 22px;
 }
 
 /* Panggung: ponsel + panel info */
@@ -388,10 +365,6 @@
 @media (max-width: 700px) {
   .love-head {
     align-items: flex-start;
-  }
-
-  .love-count b {
-    font-size: 48px;
   }
 
   .love-stage {

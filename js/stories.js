@@ -20,7 +20,6 @@
   const screen = $('#lovePhone');
   const watchBtn = $('#loveWatch');
   const namesEl = $('#loveNames');
-  const numEl = $('#loveNum');
   const bar = $('.love-progress b');
   const list = $('#loveList');
   const items = $$('.love-item');
@@ -29,7 +28,6 @@
 
   const CLIP = 14;                                    // detik tayang sebelum pindah otomatis
   let index = -1, hold = false, loaded = false;
-  const pad = n => String(n).padStart(2, '0');
 
   /** Pilih pasangan ke-k: perbarui teks, poster, dan (jika sudah aktif) video */
   const select = k => {
@@ -45,7 +43,6 @@
     section.classList.add('swap');
     setTimeout(() => {
       namesEl.textContent = item.dataset.names;
-      numEl.textContent = pad(index + 1);
       section.classList.remove('swap');
     }, 220);
 

@@ -53,7 +53,7 @@ python3 -m http.server 8000      # lalu buka http://localhost:8000
 | Testimoni | `index.html`, section `.tm` (**saat ini teks contoh**) |
 | Musik latar | ganti file di `assets/audio/` lalu perbarui `music` di `js/config.js` |
 | Tambah video carousel | duplikat satu `<button class="rl">` di section `id="reels"` |
-| Tambah pasangan di "Kisah pasangan" | taruh video di `assets/video/pasangan/` dan gambar sampul di `assets/images/pasangan/`; duplikat satu `<li class="love-item">` di section `id="cerita"` (ubah `data-clip`, `data-poster`, `data-names`) dan ubah angka `/ 07` |
+| Tambah pasangan di "Kisah pasangan" | taruh video di `assets/video/pasangan/` dan gambar sampul di `assets/images/pasangan/`; duplikat satu `<li class="love-item">` di section `id="cerita"` (ubah `data-clip`, `data-poster`, `data-names`) |
 
 Menambah animasi muncul-saat-scroll ke elemen baru: tambahkan selector-nya di konstanta `REVEAL` pada `js/reveal.js`.
 
