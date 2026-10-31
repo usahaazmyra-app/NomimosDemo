@@ -109,5 +109,7 @@
   new MutationObserver(sync).observe(lightbox, { attributes: true, attributeFilter: ['hidden'] });
   new IntersectionObserver(([entry]) => { inView = entry.isIntersecting; sync(); }, { threshold: 0.35 }).observe(track);
 
+  // Layar lebar: mulai dari kartu ketiga agar kiri-kanan terisi; HP: mulai dari kartu pertama
+  if (innerWidth > 700) track.scrollTo({ left: center(cards[2]) - track.clientWidth / 2, behavior: 'auto' });
   detect();
 })();
