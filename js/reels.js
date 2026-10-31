@@ -3,6 +3,7 @@
  * --------------------------------------------------------------
  * - Kartu di tengah = aktif: diputar (tanpa suara) dan sedikit membesar;
  *   kartu lain berhenti agar ringan dan fokus.
+ * - Berganti otomatis tiap AUTO_MS; jeda saat kursor di atasnya, disentuh, atau lightbox terbuka.
  * - Geser (HP), panah / titik / tombol kiri-kanan (desktop).
  * - Ketuk kartu samping = pindah ke tengah; ketuk kartu aktif = lightbox + suara.
  * Bergantung pada media.js (NMS.openVideo).
@@ -16,7 +17,9 @@
   const prev = $('.rl-prev'), next = $('.rl-next');
   const dotsBox = $('.rl-dots'), count = $('.rl-count');
   const lightbox = $('#lb');
+  const AUTO_MS = 7000;                       // jeda antar pergantian video (milidetik) — ubah di sini
   let active = -1, inView = false, ticking = false;
+  let elapsed = 0, lastTick = 0, hovering = false, holdUntil = 0;
 
   const pad = n => String(n).padStart(2, '0');
   const fmt = s => Math.floor(s / 60) + ':' + pad(Math.floor(s % 60));
@@ -37,9 +40,6 @@
     const video = $('video', card), dur = $('.rl-dur', card);
     const showDuration = () => { if (isFinite(video.duration)) dur.textContent = fmt(video.duration); };
     if (video.readyState >= 1) showDuration(); else video.addEventListener('loadedmetadata', showDuration, { once: true });
-    video.addEventListener('timeupdate', () => {
-      if (video.duration) card.style.setProperty('--p', video.currentTime / video.duration);
-    });
   });
 
   function goTo(i) {
@@ -59,8 +59,11 @@
   function setActive(i) {
     if (i === active) return;
     active = i;
+    elapsed = 0;
     cards.forEach((card, k) => {
       card.classList.toggle('on', k === i);
+      card.style.setProperty('--p', 0);
+      if (k === i) $('video', card).currentTime = 0;     // video aktif selalu mulai dari awal
       if (k === i) card.setAttribute('aria-current', 'true'); else card.removeAttribute('aria-current');
     });
     dots.forEach((dot, k) => dot.classList.toggle('on', k === i));
@@ -111,5 +114,26 @@
 
   // Layar lebar: mulai dari kartu ketiga agar kiri-kanan terisi; HP: mulai dari kartu pertama
   if (innerWidth > 700) track.scrollTo({ left: center(cards[2]) - track.clientWidth / 2, behavior: 'auto' });
+  // Pergantian otomatis: garis progres di kartu aktif = hitung mundur ke video berikutnya
+  const hold = ms => { holdUntil = performance.now() + ms; };
+  ['pointerdown', 'wheel', 'touchstart', 'keydown', 'focusin'].forEach(type =>
+    track.addEventListener(type, () => hold(4000), { passive: true }));
+  track.addEventListener('mouseenter', () => { hovering = true; });
+  track.addEventListener('mouseleave', () => { hovering = false; hold(800); });
+  [prev, next, dotsBox].forEach(el => el.addEventListener('click', () => hold(4000)));
+
+  const tick = time => {
+    const dt = Math.min(time - lastTick, 100);          // batasi lonjakan saat tab kembali aktif
+    lastTick = time;
+    const run = !reduceMotion && inView && lightbox.hidden && !document.hidden && !hovering && time > holdUntil;
+    if (run && active > -1) {
+      elapsed += dt;
+      cards[active].style.setProperty('--p', Math.min(elapsed / AUTO_MS, 1));
+      if (elapsed >= AUTO_MS) { elapsed = 0; goTo((active + 1) % cards.length); }
+    }
+    requestAnimationFrame(tick);
+  };
+  requestAnimationFrame(tick);
+
   detect();
 })();
