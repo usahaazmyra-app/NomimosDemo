@@ -289,20 +289,76 @@
       </div>
     </div>
   </section>
-  <!-- VIDEO — carousel otomatis (js/reels.js); klik membuka lightbox (js/media.js).
-       Tambah video: duplikat satu <button class="rl"> dan ubah data-video + src. -->
+  <!-- VIDEO — carousel (js/reels.js); kartu tengah diputar otomatis, ketuk kartu aktif membuka lightbox (js/media.js).
+       Tambah video: duplikat satu <button class="rl"> dan ubah data-src, data-cat, data-title + src video. -->
   <section id="reels">
-    <div class="w">
+    <div class="w rl-top">
       <div class="head">
+        <span class="rl-eyebrow">Video</span>
         <h2>Nomimos beraksi</h2>
-        <p>Video berjalan otomatis. Arahkan kursor atau sentuh untuk menjeda, ketuk untuk layar penuh dengan suara.</p>
-        <a class="btn" style="margin-top:18px" href="https://www.instagram.com/nomimos.organizer/" target="_blank" rel="noopener">Ikuti @nomimos.organizer</a>
+        <p>Cuplikan kerja kami di lapangan. Geser untuk menjelajah, ketuk video di tengah untuk menonton layar penuh dengan suara.</p>
+      </div>
+      <div class="rl-side">
+        <a class="btn" href="https://www.instagram.com/nomimos.organizer/" target="_blank" rel="noopener">Ikuti @nomimos.organizer</a>
+        <div class="rl-ctrl">
+          <button class="rl-nav rl-prev" type="button" aria-label="Video sebelumnya">&#8249;</button>
+          <button class="rl-nav rl-next" type="button" aria-label="Video berikutnya">&#8250;</button>
+        </div>
       </div>
     </div>
-    <div class="reels"><button class="rl" aria-label="Putar video Rino & Jojo" data-video="assets/video/rino-jojo.mp4"><video src="assets/video/rino-jojo.mp4" loop="" muted="" playsinline="" preload="metadata"></video><span>Rino & Jojo</span></button><button class="rl" aria-label="Putar video Teaser 1" data-video="assets/video/teaser-1.mp4"><video src="assets/video/teaser-1.mp4" loop="" muted="" playsinline="" preload="metadata"></video><span>Teaser 1</span></button><button class="rl" aria-label="Putar video Teaser 2" data-video="assets/video/teaser-2.mp4"><video src="assets/video/teaser-2.mp4" loop="" muted="" playsinline="" preload="metadata"></video><span>Teaser 2</span></button><button class="rl" aria-label="Putar video Wedding Package" data-video="assets/video/paket-wedding.mp4"><video src="assets/video/paket-wedding.mp4" loop="" muted="" playsinline="" preload="metadata"></video><span>Wedding Package</span></button><button class="rl" aria-label="Putar video Paket Non-Wedding" data-video="assets/video/paket-non-wedding.mp4"><video src="assets/video/paket-non-wedding.mp4" loop="" muted="" playsinline="" preload="metadata"></video><span>Paket Non-Wedding</span></button><button class="rl" aria-label="Putar video Tim Nomimos" data-video="assets/video/tim-nomimos-1.mp4"><video src="assets/video/tim-nomimos-1.mp4" loop="" muted="" playsinline="" preload="metadata"></video><span>Tim Nomimos</span></button></div>
+    <div class="reels" role="group" aria-roledescription="carousel" aria-label="Video Nomimos">
+        <button class="rl" type="button" data-src="assets/video/rino-jojo.mp4" data-cat="Wedding film" data-title="Rino & Jojo" aria-label="Tonton video Rino & Jojo">
+          <video src="assets/video/rino-jojo.mp4#t=0.1" loop muted playsinline preload="metadata"></video>
+          <i class="rl-chip">Wedding film</i><i class="rl-play" aria-hidden="true"></i>
+          <span class="rl-info"><b>Rino & Jojo</b><small class="rl-dur"></small></span>
+          <i class="rl-bar" aria-hidden="true"></i>
+        </button>
+        <button class="rl" type="button" data-src="assets/video/teaser-1.mp4" data-cat="Teaser" data-title="Teaser 1" aria-label="Tonton video Teaser 1">
+          <video src="assets/video/teaser-1.mp4#t=0.1" loop muted playsinline preload="metadata"></video>
+          <i class="rl-chip">Teaser</i><i class="rl-play" aria-hidden="true"></i>
+          <span class="rl-info"><b>Teaser 1</b><small class="rl-dur"></small></span>
+          <i class="rl-bar" aria-hidden="true"></i>
+        </button>
+        <button class="rl" type="button" data-src="assets/video/teaser-2.mp4" data-cat="Teaser" data-title="Teaser 2" aria-label="Tonton video Teaser 2">
+          <video src="assets/video/teaser-2.mp4#t=0.1" loop muted playsinline preload="metadata"></video>
+          <i class="rl-chip">Teaser</i><i class="rl-play" aria-hidden="true"></i>
+          <span class="rl-info"><b>Teaser 2</b><small class="rl-dur"></small></span>
+          <i class="rl-bar" aria-hidden="true"></i>
+        </button>
+        <button class="rl" type="button" data-src="assets/video/paket-wedding.mp4" data-cat="Paket" data-title="Wedding Package" aria-label="Tonton video Wedding Package">
+          <video src="assets/video/paket-wedding.mp4#t=0.1" loop muted playsinline preload="metadata"></video>
+          <i class="rl-chip">Paket</i><i class="rl-play" aria-hidden="true"></i>
+          <span class="rl-info"><b>Wedding Package</b><small class="rl-dur"></small></span>
+          <i class="rl-bar" aria-hidden="true"></i>
+        </button>
+        <button class="rl" type="button" data-src="assets/video/paket-non-wedding.mp4" data-cat="Paket" data-title="Paket Non-Wedding" aria-label="Tonton video Paket Non-Wedding">
+          <video src="assets/video/paket-non-wedding.mp4#t=0.1" loop muted playsinline preload="metadata"></video>
+          <i class="rl-chip">Paket</i><i class="rl-play" aria-hidden="true"></i>
+          <span class="rl-info"><b>Paket Non-Wedding</b><small class="rl-dur"></small></span>
+          <i class="rl-bar" aria-hidden="true"></i>
+        </button>
+        <button class="rl" type="button" data-src="assets/video/tim-nomimos-1.mp4" data-cat="Tim kami" data-title="Tim Nomimos" aria-label="Tonton video Tim Nomimos">
+          <video src="assets/video/tim-nomimos-1.mp4#t=0.1" loop muted playsinline preload="metadata"></video>
+          <i class="rl-chip">Tim kami</i><i class="rl-play" aria-hidden="true"></i>
+          <span class="rl-info"><b>Tim Nomimos</b><small class="rl-dur"></small></span>
+          <i class="rl-bar" aria-hidden="true"></i>
+        </button>
+    </div>
+    <div class="rl-foot"><span class="rl-count" aria-hidden="true">01 / 06</span><div class="rl-dots"></div></div>
   </section>
   <!-- LIGHTBOX VIDEO (diisi lewat JavaScript) -->
-  <div class="lb" id="lb" hidden role="dialog" aria-label="Pemutar video"><button class="x" aria-label="Tutup">×</button><video id="lbv" controls="" playsinline="" loop=""></video></div>
+  <div class="lb" id="lb" hidden role="dialog" aria-modal="true" aria-label="Pemutar video">
+    <button class="x" aria-label="Tutup">×</button>
+    <button class="lb-nav lb-prev" aria-label="Video sebelumnya" hidden>&#8249;</button>
+    <div class="lb-stage">
+      <video id="lbv" controls playsinline loop></video>
+      <div class="lb-cap" hidden>
+        <div><span class="lb-cat"></span><strong class="lb-title"></strong></div>
+        <a class="btn g lb-cta" target="_blank" rel="noopener" href="#" hidden>Konsultasi via WhatsApp</a>
+      </div>
+    </div>
+    <button class="lb-nav lb-next" aria-label="Video berikutnya" hidden>&#8250;</button>
+  </div>
   <!-- KISAH PASANGAN — kumpulan video wedding klien (js/stories.js).
      Setiap pasangan = satu <li class="love-item"> dengan data-clip (file video), data-poster, data-names.
      Tambah pasangan: duplikat satu <li>, ganti 3 atribut itu dan teksnya. -->

@@ -21,21 +21,46 @@
     video.muted = true;                       // autoplay hanya diizinkan jika tanpa suara
     if (!reduceMotion) visibility.observe(video);
   };
-  $$('video:not(#lbv)').forEach(NMS.observeVideo);
+  $$('video:not(#lbv):not(.reels video)').forEach(NMS.observeVideo);
 
   /* 2. Lightbox video --------------------------------------------- */
   const videoBox = $('#lb');
   const player = $('#lbv');
+  const cap = $('.lb-cap', videoBox), capCat = $('.lb-cat', videoBox), capTitle = $('.lb-title', videoBox);
+  const cta = $('.lb-cta', videoBox), navPrev = $('.lb-prev', videoBox), navNext = $('.lb-next', videoBox);
+  let meta = null, opener = null;
 
-  NMS.openVideo = src => {
+  // info (opsional): { title, cat, cta, onPrev, onNext } -> keterangan, tombol WhatsApp, dan panah antar video
+  NMS.openVideo = (src, info = {}) => {
+    meta = info;
+    if (videoBox.hidden) opener = document.activeElement;
     player.src = src;
+    cap.hidden = !info.title;
+    capCat.textContent = info.cat || '';
+    capTitle.textContent = info.title || '';
+    cta.hidden = !info.cta;
+    if (info.cta) cta.href = NMS.waLink('Halo Nomimos, saya tertarik setelah melihat video "' + info.title + '"');
+    navPrev.hidden = !info.onPrev;
+    navNext.hidden = !info.onNext;
     videoBox.hidden = false;
+    document.body.style.overflow = 'hidden';  // cegah halaman ikut bergulir di belakang
     player.muted = false;                     // di lightbox video boleh bersuara
     player.play().catch(() => {});
+    $('.x', videoBox).focus({ preventScroll: true });
   };
-  const closeVideo = () => { videoBox.hidden = true; player.pause(); };
+  const closeVideo = () => {
+    if (videoBox.hidden) return;
+    videoBox.hidden = true;
+    player.pause();
+    meta = null;
+    document.body.style.overflow = '';
+    if (opener) opener.focus({ preventScroll: true });
+    opener = null;
+  };
+  navPrev.addEventListener('click', () => meta && meta.onPrev && meta.onPrev());
+  navNext.addEventListener('click', () => meta && meta.onNext && meta.onNext());
 
-  // Satu listener untuk semua pemicu (termasuk kartu hasil klon di carousel)
+  // Satu listener untuk semua pemicu [data-video]
   document.addEventListener('click', event => {
     const trigger = event.target.closest('[data-video]');
     if (trigger) NMS.openVideo(trigger.dataset.video);
@@ -75,5 +100,9 @@
   // Tombol Esc menutup lightbox mana pun yang terbuka
   document.addEventListener('keydown', e => {
     if (e.key === 'Escape') { closeVideo(); closeImage(); }
+    if (!videoBox.hidden && meta && e.target !== player) {   // panah kiri/kanan = video sebelumnya/berikutnya
+      if (e.key === 'ArrowLeft' && meta.onPrev) meta.onPrev();
+      if (e.key === 'ArrowRight' && meta.onNext) meta.onNext();
+    }
   });
 })();

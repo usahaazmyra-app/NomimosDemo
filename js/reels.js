@@ -1,54 +1,113 @@
 /**
- * reels.js — Carousel video "Nomimos beraksi" (jalan otomatis)
+ * reels.js — Carousel video "Nomimos beraksi"
  * --------------------------------------------------------------
- * Kartu digandakan agar putaran tidak terputus. Berhenti sementara saat
- * kursor di atasnya atau layar disentuh, dan saat lightbox video terbuka.
- * Bergantung pada media.js (NMS.observeVideo).
+ * - Kartu di tengah = aktif: diputar (tanpa suara) dan sedikit membesar;
+ *   kartu lain berhenti agar ringan dan fokus.
+ * - Geser (HP), panah / titik / tombol kiri-kanan (desktop).
+ * - Ketuk kartu samping = pindah ke tengah; ketuk kartu aktif = lightbox + suara.
+ * Bergantung pada media.js (NMS.openVideo).
  */
 (() => {
-  const { $, reduceMotion } = NMS;
-  const row = $('.reels');
-  if (!row || reduceMotion) return;                 // tanpa animasi: carousel manual saja
+  const { $, $$, reduceMotion } = NMS;
+  const track = $('.reels');
+  if (!track) return;
 
-  const SPEED = 0.05;                               // px per milidetik (50 px/detik)
-  const original = Array.from(row.children);
-  const count = original.length;
+  const cards = $$('.rl', track);
+  const prev = $('.rl-prev'), next = $('.rl-next');
+  const dotsBox = $('.rl-dots'), count = $('.rl-count');
+  const lightbox = $('#lb');
+  let active = -1, inView = false, ticking = false;
 
-  // Gandakan kartu (klon disembunyikan dari pembaca layar)
-  original.forEach(card => {
-    const clone = card.cloneNode(true);
-    clone.setAttribute('aria-hidden', 'true');
-    clone.tabIndex = -1;
-    row.appendChild(clone);
-    NMS.observeVideo($('video', clone));
+  const pad = n => String(n).padStart(2, '0');
+  const fmt = s => Math.floor(s / 60) + ':' + pad(Math.floor(s % 60));
+  const center = card => card.offsetLeft + card.offsetWidth / 2;
+
+  // Titik navigasi
+  const dots = cards.map((card, i) => {
+    const dot = document.createElement('button');
+    dot.type = 'button';
+    dot.setAttribute('aria-label', 'Video ' + (i + 1) + ': ' + card.dataset.title);
+    dot.addEventListener('click', () => goTo(i));
+    dotsBox.appendChild(dot);
+    return dot;
   });
 
-  // Lebar satu putaran penuh = jarak kartu pertama ke klon pertama
-  const loopWidth = () => row.children[count].offsetLeft - row.children[0].offsetLeft;
+  // Durasi & progres tiap kartu
+  cards.forEach(card => {
+    const video = $('video', card), dur = $('.rl-dur', card);
+    const showDuration = () => { if (isFinite(video.duration)) dur.textContent = fmt(video.duration); };
+    if (video.readyState >= 1) showDuration(); else video.addEventListener('loadedmetadata', showDuration, { once: true });
+    video.addEventListener('timeupdate', () => {
+      if (video.duration) card.style.setProperty('--p', video.currentTime / video.duration);
+    });
+  });
 
-  let position = row.scrollLeft, last = 0, holdUntil = 0;
-  const hold = ms => { holdUntil = performance.now() + ms; };
+  function goTo(i) {
+    i = Math.max(0, Math.min(cards.length - 1, i));
+    track.scrollTo({ left: center(cards[i]) - track.clientWidth / 2, behavior: reduceMotion ? 'auto' : 'smooth' });
+  }
 
-  ['pointerdown', 'wheel', 'touchstart', 'focusin'].forEach(type =>
-    row.addEventListener(type, () => hold(2500), { passive: true }));
-  row.addEventListener('mouseenter', () => { holdUntil = Infinity; });
-  row.addEventListener('mouseleave', () => hold(800));
-  row.addEventListener('scroll', () => {              // jika digeser manual melewati batas, kembali ke awal
-    if (row.scrollLeft >= loopWidth()) row.scrollLeft -= loopWidth();
+  // Hanya kartu aktif yang diputar, dan hanya saat section terlihat
+  function sync() {
+    const canPlay = inView && lightbox.hidden && !document.hidden && !reduceMotion;
+    cards.forEach((card, i) => {
+      const video = $('video', card);
+      if (i === active && canPlay) video.play().catch(() => {}); else video.pause();
+    });
+  }
+
+  function setActive(i) {
+    if (i === active) return;
+    active = i;
+    cards.forEach((card, k) => {
+      card.classList.toggle('on', k === i);
+      if (k === i) card.setAttribute('aria-current', 'true'); else card.removeAttribute('aria-current');
+    });
+    dots.forEach((dot, k) => dot.classList.toggle('on', k === i));
+    count.textContent = pad(i + 1) + ' / ' + pad(cards.length);
+    prev.disabled = i === 0;
+    next.disabled = i === cards.length - 1;
+    sync();
+  }
+
+  function detect() {
+    ticking = false;
+    const mid = track.scrollLeft + track.clientWidth / 2;
+    let best = 0, gap = Infinity;
+    cards.forEach((card, i) => {
+      const g = Math.abs(center(card) - mid);
+      if (g < gap) { gap = g; best = i; }
+    });
+    setActive(best);
+  }
+
+  function open(i) {
+    i = (i + cards.length) % cards.length;
+    const d = cards[i].dataset;
+    goTo(i);
+    NMS.openVideo(d.src, {
+      cat: d.cat, title: d.title, cta: true,
+      onPrev: () => open(i - 1), onNext: () => open(i + 1)
+    });
+  }
+
+  cards.forEach((card, i) => {
+    card.addEventListener('click', () => (i === active ? open(i) : goTo(i)));
+    card.addEventListener('focus', () => { if (i !== active) goTo(i); });
+  });
+  prev.addEventListener('click', () => goTo(active - 1));
+  next.addEventListener('click', () => goTo(active + 1));
+  track.addEventListener('keydown', e => {
+    if (e.key === 'ArrowLeft') { e.preventDefault(); goTo(active - 1); }
+    if (e.key === 'ArrowRight') { e.preventDefault(); goTo(active + 1); }
+  });
+  track.addEventListener('scroll', () => {
+    if (!ticking) { ticking = true; requestAnimationFrame(detect); }
   }, { passive: true });
+  addEventListener('resize', detect);
+  document.addEventListener('visibilitychange', sync);
+  new MutationObserver(sync).observe(lightbox, { attributes: true, attributeFilter: ['hidden'] });
+  new IntersectionObserver(([entry]) => { inView = entry.isIntersecting; sync(); }, { threshold: 0.35 }).observe(track);
 
-  const tick = time => {
-    const dt = Math.min(time - last, 50);             // batasi lonjakan saat tab kembali aktif
-    last = time;
-    const lightboxOpen = !$('#lb').hidden;
-    if (time > holdUntil && !lightboxOpen && !document.hidden) {
-      position += SPEED * dt;
-      if (position >= loopWidth()) position -= loopWidth();
-      row.scrollLeft = position;
-    } else {
-      position = row.scrollLeft;                      // sinkron dengan posisi manual
-    }
-    requestAnimationFrame(tick);
-  };
-  requestAnimationFrame(tick);
+  detect();
 })();
