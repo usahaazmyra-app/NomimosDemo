@@ -40,7 +40,7 @@
     button.classList.toggle('on', audible);                          // animasi equalizer
     button.classList.toggle('wait', wantMusic && !audible && !videoPlaying); // berdenyut: menunggu ketukan
     button.setAttribute('aria-pressed', String(wantMusic));
-    label.textContent = audible ? 'Saxophone'
+    label.textContent = audible ? 'Music'
       : wantMusic ? (videoPlaying ? 'Dijeda (video)' : 'Putar musik')
       : 'Musik mati';
   };
