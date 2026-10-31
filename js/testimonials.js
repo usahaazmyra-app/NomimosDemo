@@ -3,8 +3,8 @@
  * --------------------------------------------------------------
  * Desktop : 3 kartu terlihat sekaligus; kartu "aktif" (bingkai emas)
  *           berganti otomatis tiap 5,5 detik, berhenti saat disentuh kursor.
- * Tablet/HP: kartu digeser (swipe) atau lewat panah/titik; kartu di tengah
- *           layar otomatis menjadi aktif.
+ * Tablet/HP: carousel yang bergeser otomatis tiap 5,5 detik (berhenti sementara
+ *           saat disentuh); bisa juga digeser manual atau lewat panah/titik.
  * Isi testimoni ada di index.html (section id="testimoni").
  */
 (() => {
@@ -16,7 +16,7 @@
   const dotsBox = $('#tmDots');
   const stacked = matchMedia('(max-width: 1000px)');   // tablet & HP = carousel geser
   const INTERVAL = 5500;
-  let index = stacked.matches ? 0 : 1, timer;     // desktop: kartu tengah menyala; carousel: mulai dari kartu pertama
+  let index = stacked.matches ? 0 : 1, timer, inView = false, holdUntil = 0;     // desktop: kartu tengah menyala; carousel: mulai dari kartu pertama
 
   /* Titik penunjuk ------------------------------------------------ */
   const dots = cards.map((_, k) => {
@@ -46,14 +46,22 @@
         behavior: reduceMotion ? 'auto' : 'smooth'
       });
     }
-    if (byUser) restart();
+    if (byUser) { hold(6000); restart(); }
   };
 
-  /* Pergantian otomatis (hanya desktop) ------------------------------ */
+  /* Pergantian otomatis (desktop: ganti kartu aktif; HP/tablet: geser carousel) */
   const restart = () => {
     clearInterval(timer);
-    if (!reduceMotion && !stacked.matches) timer = setInterval(() => mark((index + 1) % cards.length), INTERVAL);
+    if (reduceMotion) return;
+    timer = setInterval(() => {
+      if (!inView || document.hidden || performance.now() < holdUntil) return;
+      if (stacked.matches) go(index + 1); else mark((index + 1) % cards.length);
+    }, INTERVAL);
   };
+  const hold = ms => { holdUntil = performance.now() + ms; };
+  ['pointerdown', 'touchstart', 'wheel'].forEach(type =>
+    track.addEventListener(type, () => hold(6000), { passive: true }));
+  new IntersectionObserver(([entry]) => { inView = entry.isIntersecting; }, { threshold: 0.3 }).observe(track);
 
   /* Interaksi ------------------------------------------------------ */
   $('#tmPrev').addEventListener('click', () => go(index - 1, true));

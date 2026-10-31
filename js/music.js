@@ -2,8 +2,9 @@
  * music.js — Musik latar (autoplay)
  * --------------------------------------------------------------
  * - Mencoba autoplay saat halaman dibuka.
- * - Browser memblokir suara otomatis sebelum pengunjung berinteraksi,
- *   jadi musik dimulai pada klik / ketukan / tombol keyboard pertama.
+ * - Musik selalu dicoba diputar tiap halaman dibuka (pilihan "mati" hanya berlaku selama
+ *   halaman itu terbuka). Browser memblokir suara otomatis sebelum pengunjung
+ *   berinteraksi, jadi musik dimulai pada klik / ketukan / tombol keyboard pertama.
  * - Musik fade-out & berhenti saat video bersuara diputar (lightbox),
  *   lalu lanjut lagi saat video ditutup. Berhenti juga saat tab disembunyikan.
  * - Tombol #mus untuk menyalakan/mematikan; pilihan disimpan di localStorage.
@@ -19,7 +20,7 @@
   audio.preload = 'auto';
   audio.volume = 0;                                  // dimulai dari senyap lalu fade-in
 
-  let wantMusic = store.get(config.storage.music) !== 'off';  // keinginan pengunjung
+  let wantMusic = true;                              // selalu coba autoplay saat halaman dibuka
   let audible = false;                               // true = benar-benar terdengar
   let videoPlaying = false;                          // true = ada video bersuara diputar
   let fadeTimer;
@@ -88,11 +89,12 @@
     if (wantMusic && !videoPlaying) {
       play().then(ok => {
         if (!ok) return;
-        ['click', 'keydown', 'touchend'].forEach(t => removeEventListener(t, firstGesture, true));
+        GESTURES.forEach(t => removeEventListener(t, firstGesture, true));
       });
     }
   };
-  ['click', 'keydown', 'touchend'].forEach(t => addEventListener(t, firstGesture, true));
+  const GESTURES = ['pointerup', 'mousedown', 'click', 'keydown', 'touchend'];  // pemicu paling awal yang diizinkan browser
+  GESTURES.forEach(t => addEventListener(t, firstGesture, true));
 
   /** Tombol musik */
   button.addEventListener('click', () => {
